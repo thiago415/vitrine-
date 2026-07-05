@@ -59,7 +59,6 @@ h1 { font-size:2rem; color:#ec4899; margin:10px 0; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
 
-/* LINKTREE IMPORT */
 .linktree-section { background:#252540; border-radius:16px; padding:20px; margin-bottom:20px; }
 .linktree-section h3 { color:#6366f1; margin-bottom:16px; font-size:1.1rem; }
 .linktree-input { width:100%; padding:14px; background:#1a1a2e; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:1rem; margin-bottom:12px; }
@@ -71,6 +70,12 @@ footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
 .link-url { font-size:0.85rem; color:#94a3b8; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .loading { display:inline-block; width:20px; height:20px; border:3px solid #2d2d4a; border-top-color:#6366f1; border-radius:50%; animation:spin 1s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
+.method-tabs { display:flex; gap:8px; margin-bottom:12px; }
+.method-tab { flex:1; padding:10px; background:#1a1a2e; border:none; border-radius:8px; color:#94a3b8; cursor:pointer; font-weight:600; }
+.method-tab.active { background:#6366f1; color:white; }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+.manual-textarea { width:100%; min-height:150px; padding:12px; background:#1a1a2e; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:14px; font-family:monospace; resize:vertical; }
 
 @media(max-width:600px){ h1{font-size:1.6rem;} .form-row{grid-template-columns:1fr;} }
 </style>
@@ -115,14 +120,43 @@ footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
     <!-- LINKTREE IMPORT SECTION -->
     <div class="linktree-section">
       <h3>🔗 Importar do Linktree</h3>
-      <input type="text" class="linktree-input" id="linktreeUrl" placeholder="https://linktr.ee/pontodolink">
-      <button class="btn btn-primary" onclick="fetchLinktreeLinks()" style="width:100%;justify-content:center;">
-        🔄 Buscar Links Automáticamente
-      </button>
+      
+      <div class="method-tabs">
+        <button class="method-tab active" onclick="switchMethod('auto')">🔄 Automático</button>
+        <button class="method-tab" onclick="switchMethod('manual')">📋 Manual</button>
+      </div>
+      
+      <!-- MÉTODO AUTOMÁTICO -->
+      <div id="method-auto" class="tab-content active">
+        <input type="text" class="linktree-input" id="linktreeUrl" placeholder="https://linktr.ee/pontodolink">
+        <button class="btn btn-primary" onclick="fetchLinktreeAuto()" style="width:100%;justify-content:center;">
+          🔍 Buscar Links (Automático)
+        </button>
+        <p style="color:#94a3b8;font-size:0.8rem;margin-top:8px;">
+          💡 Dica: Se der erro, use o método manual abaixo
+        </p>
+      </div>
+      
+      <!-- MÉTODO MANUAL -->
+      <div id="method-manual" class="tab-content">
+        <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:8px;">
+          1. Abra seu Linktree<br>
+          2. Copie os links (um por linha)<br>
+          3. Cole no formato: <strong>Nome - https://link.com</strong>
+        </p>
+        <textarea id="manualLinks" class="manual-textarea" placeholder="Curso de Marketing - https://hotmart.com/curso1
+E-book Grátis - https://eduzz.com/ebook
+Kit Completo - https://shopee.com/kit"></textarea>
+        <button class="btn btn-primary" onclick="parseManualLinks()" style="width:100%;justify-content:center;margin-top:12px;">
+          📋 Processar Links
+        </button>
+      </div>
+      
       <div id="loadingIndicator" style="display:none;text-align:center;padding:20px;">
         <div class="loading"></div>
-        <p style="margin-top:10px;color:#94a3b8;">Buscando links do Linktree...</p>
+        <p style="margin-top:10px;color:#94a3b8;">Buscando links...</p>
       </div>
+      
       <div id="linktreePreview" class="linktree-preview" style="display:none;"></div>
       <div id="linktreeActions" style="display:none;margin-top:16px;gap:10px;">
         <button class="btn btn-success" onclick="importLinks()" style="flex:1;justify-content:center;">
@@ -322,15 +356,22 @@ function filterByCategory(cat) {
   renderProducts();
 }
 
-// 🔗 LINKTREE FUNCTIONS
-async function fetchLinktreeLinks() {
+function switchMethod(method) {
+  document.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+  
+  event.target.classList.add('active');
+  document.getElementById('method-' + method).classList.add('active');
+}
+
+// 🔄 MÉTODO AUTOMÁTICO (com proxy)
+async function fetchLinktreeAuto() {
   const url = document.getElementById('linktreeUrl').value.trim();
   if (!url) {
     showToast('❌ Digite a URL do Linktree!');
     return;
   }
   
-  // Extrair username
   const match = url.match(/linktr\.ee\/([^\/\?]+)/i);
   if (!match) {
     showToast('❌ URL inválida! Use: https://linktr.ee/usuario');
@@ -343,11 +384,11 @@ async function fetchLinktreeLinks() {
   document.getElementById('linktreeActions').style.display = 'none';
   
   try {
-    // Usando API pública do Linktree
+    // Tentar API do Linktree primeiro
     const apiUrl = 'https://api.linktr.ee/profiles/' + username + '/links';
     const response = await fetch(apiUrl);
     
-    if (!response.ok) throw new Error('Erro na API');
+    if (!response.ok) throw new Error('API error');
     
     const data = await response.json();
     const links = data.links || [];
@@ -359,30 +400,71 @@ async function fetchLinktreeLinks() {
     }
     
     fetchedLinks = links;
-    
-    // Mostrar preview
-    const preview = document.getElementById('linktreePreview');
-    preview.innerHTML = '<h4 style="margin-bottom:12px;color:#94a3b8;">📋 ' + links.length + ' links encontrados:</h4>' +
-      links.map(function(link, i) {
-        return '<div class="link-item">' +
-          '<input type="checkbox" id="lt-check-' + i + '" checked>' +
-          '<div class="link-info">' +
-            '<div class="link-title">' + (link.title || 'Link ' + (i+1)) + '</div>' +
-            '<div class="link-url">' + link.url + '</div>' +
-          '</div>' +
-        '</div>';
-      }).join('');
-    
-    preview.style.display = 'block';
-    document.getElementById('linktreeActions').style.display = 'flex';
+    showPreview(links);
     showToast('✅ ' + links.length + ' links encontrados!');
     
   } catch (error) {
     console.error('Error:', error);
-    showToast('❌ Erro ao buscar. Verifique o username!');
+    showToast('❌ Automático falhou. Use o método MANUAL!');
+    
+    // Instruir usuário a usar método manual
+    setTimeout(function() {
+      document.querySelector('.method-tab:last-child').click();
+    }, 1500);
   } finally {
     document.getElementById('loadingIndicator').style.display = 'none';
   }
+}
+
+// 📋 MÉTODO MANUAL
+function parseManualLinks() {
+  const text = document.getElementById('manualLinks').value.trim();
+  if (!text) {
+    showToast('❌ Cole os links primeiro!');
+    return;
+  }
+  
+  const lines = text.split('\n').filter(function(l) { return l.trim(); });
+  const links = [];
+  
+  lines.forEach(function(line) {
+    const parts = line.split(/[-–—]/);
+    if (parts.length >= 2) {
+      const name = parts[0].trim();
+      const url = parts[parts.length - 1].trim();
+      if (url.startsWith('http')) {
+        links.push({ title: name, url: url });
+      }
+    } else if (line.startsWith('http')) {
+      links.push({ title: 'Produto', url: line.trim() });
+    }
+  });
+  
+  if (links.length === 0) {
+    showToast('❌ Formato inválido! Use: Nome - https://link.com');
+    return;
+  }
+  
+  fetchedLinks = links;
+  showPreview(links);
+  showToast('✅ ' + links.length + ' links processados!');
+}
+
+function showPreview(links) {
+  const preview = document.getElementById('linktreePreview');
+  preview.innerHTML = '<h4 style="margin-bottom:12px;color:#94a3b8;">📋 ' + links.length + ' links encontrados:</h4>' +
+    links.map(function(link, i) {
+      return '<div class="link-item">' +
+        '<input type="checkbox" id="lt-check-' + i + '" checked>' +
+        '<div class="link-info">' +
+          '<div class="link-title">' + (link.title || 'Link ' + (i+1)) + '</div>' +
+          '<div class="link-url">' + link.url + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  
+  preview.style.display = 'block';
+  document.getElementById('linktreeActions').style.display = 'flex';
 }
 
 function importLinks() {
@@ -420,12 +502,12 @@ function importLinks() {
 
 function cancelImport() {
   document.getElementById('linktreeUrl').value = '';
+  document.getElementById('manualLinks').value = '';
   document.getElementById('linktreePreview').style.display = 'none';
   document.getElementById('linktreeActions').style.display = 'none';
   fetchedLinks = [];
 }
 
-// REST OF THE FUNCTIONS
 function handleImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
