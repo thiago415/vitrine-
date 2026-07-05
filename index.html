@@ -87,7 +87,6 @@
   }
   
   .search-box input:focus { outline: none; border-color: var(--primary); }
-  
   .search-box::before {
     content: "🔍";
     position: absolute;
@@ -115,6 +114,7 @@
   .btn-ghost { background: var(--bg-card); color: var(--text); border: 2px solid var(--border); }
   .btn-danger { background: var(--danger); color: white; }
   .btn-success { background: var(--success); color: white; }
+  .btn-warning { background: #f59e0b; color: white; }
   
   .categories { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
   
@@ -176,7 +176,6 @@
   }
   
   .product-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-  
   .product-category {
     color: var(--primary);
     font-size: 0.8rem;
@@ -185,9 +184,7 @@
     margin-bottom: 8px;
     font-weight: 600;
   }
-  
   .product-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
-  
   .product-description {
     color: var(--text-muted);
     font-size: 0.9rem;
@@ -195,9 +192,7 @@
     flex: 1;
     line-height: 1.5;
   }
-  
   .product-price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-  
   .price-current { font-size: 1.6rem; font-weight: 800; color: var(--success); }
   .price-old { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; }
   
@@ -290,7 +285,6 @@
   }
   
   .form-group { margin-bottom: 16px; }
-  
   .form-group label {
     display: block;
     margin-bottom: 8px;
@@ -298,7 +292,6 @@
     color: var(--text-muted);
     font-size: 0.9rem;
   }
-  
   .form-group input,
   .form-group textarea,
   .form-group select {
@@ -311,13 +304,10 @@
     font-size: 16px;
     font-family: inherit;
   }
-  
   .form-group input:focus,
   .form-group textarea:focus,
   .form-group select:focus { outline: none; border-color: var(--primary); }
-  
   .form-group textarea { resize: vertical; min-height: 80px; }
-  
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   
   .checkbox-group {
@@ -329,7 +319,6 @@
     border-radius: 12px;
     cursor: pointer;
   }
-  
   .checkbox-group input { width: auto; }
   
   .modal-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
@@ -365,7 +354,6 @@
   
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   
-  /* 🆕 ESTILOS DO UPLOAD DE IMAGEM */
   .image-upload-area {
     border: 2px dashed var(--border);
     border-radius: 16px;
@@ -389,16 +377,8 @@
     background: rgba(99, 102, 241, 0.1);
   }
   
-  .image-upload-area .upload-icon {
-    font-size: 3rem;
-    opacity: 0.7;
-  }
-  
-  .image-upload-area .upload-text {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-  
+  .image-upload-area .upload-icon { font-size: 3rem; opacity: 0.7; }
+  .image-upload-area .upload-text { color: var(--text-muted); font-size: 0.9rem; }
   .image-upload-area .upload-buttons {
     display: flex;
     gap: 10px;
@@ -422,18 +402,8 @@
     touch-action: manipulation;
   }
   
-  .upload-btn.secondary {
-    background: var(--bg-card);
-    border: 2px solid var(--border);
-  }
-  
-  .image-preview {
-    width: 100%;
-    max-height: 200px;
-    object-fit: contain;
-    border-radius: 12px;
-  }
-  
+  .upload-btn.secondary { background: var(--bg-card); border: 2px solid var(--border); }
+  .image-preview { width: 100%; max-height: 200px; object-fit: contain; border-radius: 12px; }
   .remove-image-btn {
     position: absolute;
     top: 10px;
@@ -472,11 +442,7 @@
     touch-action: manipulation;
   }
   
-  .image-tab.active {
-    background: var(--primary);
-    color: white;
-  }
-  
+  .image-tab.active { background: var(--primary); color: white; }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
   
@@ -501,12 +467,75 @@
     touch-action: manipulation;
   }
   
-  .emoji-option.selected {
-    border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.2);
+  .emoji-option.selected { border-color: var(--primary); background: rgba(99, 102, 241, 0.2); }
+  .emoji-option:active { transform: scale(0.9); }
+  
+  /* 🆕 LINKTREE IMPORT STYLES */
+  .import-section {
+    background: var(--bg-soft);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
   }
   
-  .emoji-option:active { transform: scale(0.9); }
+  .import-section h3 {
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+  
+  .import-url-input {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .import-url-input:focus { outline: none; border-color: var(--primary); }
+  
+  .import-preview {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 16px;
+  }
+  
+  .import-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .import-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .import-item-info { flex: 1; min-width: 0; }
+  .import-item-title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .import-item-url { font-size: 0.85rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
   
   @media (max-width: 600px) {
     h1 { font-size: 1.6rem; }
@@ -558,10 +587,35 @@
       <textarea id="storeDescInput" placeholder="Uma frase sobre seus produtos"></textarea>
     </div>
     
+    <!-- 🆕 LINKTREE IMPORT SECTION -->
+    <div class="import-section">
+      <h3>🔗 Importar do Linktree</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">
+        Cole o link do seu Linktree e importe todos os links de uma vez!
+      </p>
+      <input type="text" class="import-url-input" id="linktreeUrlInput" placeholder="https://linktr.ee/pontodolink">
+      <button class="btn btn-primary" onclick="fetchLinktreeData()" style="width: 100%; justify-content: center;">
+        📥 Buscar Links do Linktree
+      </button>
+      <div id="linktreeLoading" style="display: none; text-align: center; padding: 20px;">
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 10px; color: var(--text-muted);">Buscando links...</p>
+      </div>
+      <div id="linktreePreview" class="import-preview" style="display: none;"></div>
+      <div id="linktreeActions" style="display: none; margin-top: 16px; gap: 10px;">
+        <button class="btn btn-success" onclick="importSelectedLinks()" style="flex: 1;">
+          ✅ Importar Selecionados
+        </button>
+        <button class="btn btn-ghost" onclick="clearLinktreeImport()" style="flex: 1;">
+          ❌ Cancelar
+        </button>
+      </div>
+    </div>
+    
     <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
       <button class="btn btn-primary" onclick="openProductForm()">➕ Adicionar Produto</button>
       <button class="btn btn-ghost" onclick="exportData()">💾 Exportar</button>
-      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">📥 Importar</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">📥 Importar JSON</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
     </div>
     
@@ -593,7 +647,6 @@
         <textarea id="productDesc" placeholder="Descreva o produto..."></textarea>
       </div>
       
-      <!-- 🆕 NOVO SISTEMA DE IMAGEM -->
       <div class="form-group">
         <label>Imagem do produto</label>
         
@@ -603,7 +656,6 @@
           <button type="button" class="image-tab" onclick="switchImageTab('url')">🔗 Link</button>
         </div>
         
-        <!-- ABA UPLOAD -->
         <div id="tab-upload" class="tab-content active">
           <div class="image-upload-area" id="uploadArea">
             <div id="uploadPlaceholder">
@@ -624,524 +676,6 @@
           <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
           <input type="file" id="imageCameraInput" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(event)">
           <input type="hidden" id="productImageBase64">
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;text-align:center;">
-            💡 Dica: imagens até 500KB funcionam melhor
-          </p>
         </div>
         
-        <!-- ABA EMOJI -->
-        <div id="tab-emoji" class="tab-content">
-          <div class="emoji-picker" id="emojiPicker"></div>
-          <input type="hidden" id="productEmoji">
-        </div>
-        
-        <!-- ABA URL -->
-        <div id="tab-url" class="tab-content">
-          <input type="url" id="productImage" placeholder="https://exemplo.com/imagem.jpg">
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">
-            💡 Cole o link direto da imagem (termina em .jpg, .png, etc)
-          </p>
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label>Categoria</label>
-          <input type="text" id="productCategory" placeholder="Ex: Cursos" list="categoriesList">
-          <datalist id="categoriesList"></datalist>
-        </div>
-        <div class="form-group">
-          <label>Preço atual (R$)</label>
-          <input type="number" id="productPrice" step="0.01" placeholder="97.00">
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Preço original (opcional)</label>
-        <input type="number" id="productPriceOld" step="0.01" placeholder="197.00">
-      </div>
-      
-      <div class="form-group">
-        <label>Link de afiliado *</label>
-        <input type="url" id="productLink" required placeholder="https://seulinkdeafiliado.com">
-      </div>
-      
-      <div class="form-group">
-        <label class="checkbox-group">
-          <input type="checkbox" id="productOffer">
-          <span>🔥 Marcar como OFERTA em destaque</span>
-        </label>
-      </div>
-      
-      <div class="modal-actions">
-        <button type="submit" class="btn btn-primary">💾 Salvar Produto</button>
-        <button type="button" class="btn btn-ghost" onclick="closeModal('productModal')">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<footer>
-  <p>💜 Feito com amor para afiliados de sucesso</p>
-  <p style="font-size: 0.85rem; margin-top: 8px;">Clique em "⚙️ Gerenciar Minha Vitrine" para adicionar produtos</p>
-</footer>
-
-<script>
-  let products = JSON.parse(localStorage.getItem('afiliado_products') || '[]');
-  let storeSettings = JSON.parse(localStorage.getItem('afiliado_settings') || '{}');
-  let currentFilter = 'all';
-  let currentSearch = '';
-  let editingId = null;
-  let selectedEmoji = '';
-
-  // 🆕 EMOJIS DISPONÍVEIS
-  const emojis = ['📚','💻','🎧','👟','📱','⌚','💄','👜','🎮','🎬','🎵','🏋️','💪','🧘','🍎','🥗','💎','👑','🔥','⭐','💰','🎁','🛍️','📦','🏠','🚗','✈️','🎯','🌟','💡','🎨','📷','🎸','🎤','🧴','👗','👔','🕶️','💍','🎓'];
-
-  function init() {
-    applyStoreSettings();
-    renderCategories();
-    renderProducts();
-    renderEmojiPicker();
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      currentSearch = e.target.value.toLowerCase();
-      renderProducts();
-    });
-    
-    // Permitir arrastar imagem para o upload
-    const uploadArea = document.getElementById('uploadArea');
-    uploadArea.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
-        document.getElementById('imageFileInput').click();
-      }
-    });
-  }
-
-  function applyStoreSettings() {
-    if (storeSettings.name) document.getElementById('storeTitle').textContent = storeSettings.name;
-    if (storeSettings.description) document.getElementById('storeSubtitle').textContent = storeSettings.description;
-  }
-
-  function renderCategories() {
-    const container = document.getElementById('categoriesContainer');
-    const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
-    
-    container.innerHTML = categories.map(cat => `
-      <div class="category-chip ${currentFilter === cat ? 'active' : ''}" 
-           onclick="filterByCategory('${cat.replace(/'/g, "\\'")}')">
-        ${cat === 'all' ? '🏷️ Todos' : cat}
-      </div>
-    `).join('');
-    
-    const datalist = document.getElementById('categoriesList');
-    const uniqueCats = [...new Set(products.map(p => p.category).filter(Boolean))];
-    datalist.innerHTML = uniqueCats.map(c => `<option value="${c}">`).join('');
-  }
-
-  function renderProducts() {
-    const grid = document.getElementById('productsGrid');
-    let filtered = products;
-    
-    if (currentFilter !== 'all') filtered = filtered.filter(p => p.category === currentFilter);
-    if (currentSearch) {
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(currentSearch) ||
-        (p.description || '').toLowerCase().includes(currentSearch) ||
-        (p.category || '').toLowerCase().includes(currentSearch)
-      );
-    }
-    
-    if (filtered.length === 0) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column: 1/-1;">
-          <div class="icon">📦</div>
-          <h3>Nenhum produto encontrado</h3>
-          <p>Clique em "⚙️ Gerenciar Minha Vitrine" para adicionar produtos!</p>
-        </div>
-      `;
-      return;
-    }
-    
-    grid.innerHTML = filtered.map(p => {
-      const imageContent = p.imageBase64 
-        ? `<img src="${p.imageBase64}" alt="${p.name}">`
-        : p.image 
-          ? `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='📦'">`
-          : (p.emoji || '📦');
-      
-      return `
-        <div class="product-card">
-          ${p.isOffer ? '<div class="badge-offer">🔥 OFERTA</div>' : ''}
-          <div class="product-image">${imageContent}</div>
-          <div class="product-info">
-            ${p.category ? `<div class="product-category">${p.category}</div>` : ''}
-            <div class="product-name">${p.name}</div>
-            ${p.description ? `<div class="product-description">${p.description}</div>` : ''}
-            ${(p.price || p.priceOld) ? `
-              <div class="product-price">
-                ${p.price ? `<span class="price-current">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>` : ''}
-                ${p.priceOld ? `<span class="price-old">R$ ${parseFloat(p.priceOld).toFixed(2).replace('.', ',')}</span>` : ''}
-              </div>
-            ` : ''}
-            <a href="${p.link}" target="_blank" rel="noopener" class="btn-buy">🛒 Quero este!</a>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function filterByCategory(cat) {
-    currentFilter = cat;
-    renderCategories();
-    renderProducts();
-  }
-
-  // 🆕 FUNÇÕES DE IMAGEM
-  function switchImageTab(tabName) {
-    document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    
-    event.target.classList.add('active');
-    document.getElementById('tab-' + tabName).classList.add('active');
-  }
-
-  function handleImageUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    // Verificar se é imagem
-    if (!file.type.startsWith('image/')) {
-      showToast('❌ Selecione um arquivo de imagem!');
-      return;
-    }
-    
-    // Verificar tamanho (máx 5MB antes de comprimir)
-    if (file.size > 5 * 1024 * 1024) {
-      showToast('❌ Imagem muito grande! Máx 5MB');
-      return;
-    }
-    
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      // Comprimir a imagem
-      compressImage(e.target.result, (compressedBase64) => {
-        document.getElementById('productImageBase64').value = compressedBase64;
-        document.getElementById('imagePreview').src = compressedBase64;
-        document.getElementById('imagePreview').style.display = 'block';
-        document.getElementById('uploadPlaceholder').style.display = 'none';
-        document.getElementById('removeImageBtn').style.display = 'block';
-        showToast('✅ Imagem carregada!');
-      });
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function compressImage(base64, callback) {
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      let width = img.width;
-      let height = img.height;
-      
-      // Redimensionar se for muito grande (máx 800px no maior lado)
-      const maxSize = 800;
-      if (width > height && width > maxSize) {
-        height = (height * maxSize) / width;
-        width = maxSize;
-      } else if (height > maxSize) {
-        width = (width * maxSize) / height;
-        height = maxSize;
-      }
-      
-      canvas.width = width;
-      canvas.height = height;
-      
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
-      
-      // Converter para JPEG com qualidade 0.7 (bom equilíbrio)
-      const compressed = canvas.toDataURL('image/jpeg', 0.7);
-      callback(compressed);
-    };
-    img.src = base64;
-  }
-
-  function removeImage(event) {
-    event.stopPropagation();
-    document.getElementById('productImageBase64').value = '';
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('uploadPlaceholder').style.display = 'flex';
-    document.getElementById('removeImageBtn').style.display = 'none';
-    document.getElementById('imageFileInput').value = '';
-    document.getElementById('imageCameraInput').value = '';
-  }
-
-  function renderEmojiPicker() {
-    const picker = document.getElementById('emojiPicker');
-    picker.innerHTML = emojis.map(e => 
-      `<button type="button" class="emoji-option" onclick="selectEmoji('${e}', this)">${e}</button>`
-    ).join('');
-  }
-
-  function selectEmoji(emoji, btn) {
-    selectedEmoji = emoji;
-    document.getElementById('productEmoji').value = emoji;
-    document.querySelectorAll('.emoji-option').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-  }
-
-  function resetImageFields() {
-    document.getElementById('productImageBase64').value = '';
-    document.getElementById('productImage').value = '';
-    document.getElementById('productEmoji').value = '';
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('uploadPlaceholder').style.display = 'flex';
-    document.getElementById('removeImageBtn').style.display = 'none';
-    document.getElementById('imageFileInput').value = '';
-    document.getElementById('imageCameraInput').value = '';
-    selectedEmoji = '';
-    document.querySelectorAll('.emoji-option').forEach(b => b.classList.remove('selected'));
-    
-    // Voltar para aba upload
-    document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelector('.image-tab').classList.add('active');
-    document.getElementById('tab-upload').classList.add('active');
-  }
-
-  // MODAIS
-  function openAdmin() {
-    document.getElementById('storeNameInput').value = storeSettings.name || '';
-    document.getElementById('storeDescInput').value = storeSettings.description || '';
-    renderAdminProductsList();
-    document.getElementById('adminModal').classList.add('active');
-  }
-
-  function renderAdminProductsList() {
-    const list = document.getElementById('adminProductsList');
-    if (products.length === 0) {
-      list.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Nenhum produto cadastrado ainda.</p>';
-      return;
-    }
-    list.innerHTML = products.map(p => {
-      const thumb = p.imageBase64 
-        ? `<img src="${p.imageBase64}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">`
-        : `<div style="font-size:1.5rem;">${p.emoji || '📦'}</div>`;
-      
-      return `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-soft);border-radius:12px;margin-bottom:8px;">
-          ${thumb}
-          <div style="flex:1;min-width:0;">
-            <div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
-            <div style="font-size:0.85rem;color:var(--text-muted);">${p.category || 'Sem categoria'}</div>
-          </div>
-          <button onclick="editProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--text);cursor:pointer;font-size:1.1rem;">✏️</button>
-          <button onclick="deleteProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--danger);cursor:pointer;font-size:1.1rem;">🗑️</button>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function openProductForm(id = null) {
-    editingId = id;
-    const form = document.getElementById('productForm');
-    form.reset();
-    resetImageFields();
-    
-    if (id) {
-      const p = products.find(x => x.id === id);
-      document.getElementById('productModalTitle').textContent = '✏️ Editar Produto';
-      document.getElementById('productId').value = p.id;
-      document.getElementById('productName').value = p.name;
-      document.getElementById('productDesc').value = p.description || '';
-      document.getElementById('productImage').value = p.image || '';
-      document.getElementById('productCategory').value = p.category || '';
-      document.getElementById('productPrice').value = p.price || '';
-      document.getElementById('productPriceOld').value = p.priceOld || '';
-      document.getElementById('productLink').value = p.link;
-      document.getElementById('productOffer').checked = p.isOffer || false;
-      
-      // Carregar imagem existente
-      if (p.imageBase64) {
-        document.getElementById('productImageBase64').value = p.imageBase64;
-        document.getElementById('imagePreview').src = p.imageBase64;
-        document.getElementById('imagePreview').style.display = 'block';
-        document.getElementById('uploadPlaceholder').style.display = 'none';
-        document.getElementById('removeImageBtn').style.display = 'block';
-      } else if (p.emoji) {
-        document.getElementById('productEmoji').value = p.emoji;
-        selectedEmoji = p.emoji;
-        // Mudar para aba emoji
-        document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.image-tab')[1].classList.add('active');
-        document.getElementById('tab-emoji').classList.add('active');
-        // Selecionar o emoji no picker
-        document.querySelectorAll('.emoji-option').forEach(btn => {
-          if (btn.textContent === p.emoji) btn.classList.add('selected');
-        });
-      } else if (p.image) {
-        document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.image-tab')[2].classList.add('active');
-        document.getElementById('tab-url').classList.add('active');
-      }
-    } else {
-      document.getElementById('productModalTitle').textContent = '➕ Novo Produto';
-    }
-    
-    document.getElementById('productModal').classList.add('active');
-  }
-
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('active');
-  }
-
-  function saveProduct(e) {
-    e.preventDefault();
-    
-    // Pegar a imagem da aba ativa
-    const activeTab = document.querySelector('.tab-content.active').id;
-    let imageBase64 = '';
-    let image = '';
-    let emoji = '';
-    
-    if (activeTab === 'tab-upload') {
-      imageBase64 = document.getElementById('productImageBase64').value;
-    } else if (activeTab === 'tab-emoji') {
-      emoji = document.getElementById('productEmoji').value || selectedEmoji;
-    } else if (activeTab === 'tab-url') {
-      image = document.getElementById('productImage').value.trim();
-    }
-    
-    const data = {
-      id: editingId || Date.now().toString(),
-      name: document.getElementById('productName').value.trim(),
-      description: document.getElementById('productDesc').value.trim(),
-      imageBase64: imageBase64,
-      image: image,
-      emoji: emoji,
-      category: document.getElementById('productCategory').value.trim(),
-      price: document.getElementById('productPrice').value,
-      priceOld: document.getElementById('productPriceOld').value,
-      link: document.getElementById('productLink').value.trim(),
-      isOffer: document.getElementById('productOffer').checked,
-      createdAt: editingId ? products.find(p => p.id === editingId).createdAt : new Date().toISOString()
-    };
-    
-    if (editingId) {
-      const idx = products.findIndex(p => p.id === editingId);
-      products[idx] = data;
-      showToast('✅ Produto atualizado!');
-    } else {
-      products.unshift(data);
-      showToast('✅ Produto adicionado!');
-    }
-    
-    saveProducts();
-    closeModal('productModal');
-    renderCategories();
-    renderProducts();
-    renderAdminProductsList();
-  }
-
-  function editProduct(id) {
-    openProductForm(id);
-  }
-
-  function deleteProduct(id) {
-    if (confirm('Tem certeza que deseja excluir este produto?')) {
-      products = products.filter(p => p.id !== id);
-      saveProducts();
-      renderCategories();
-      renderProducts();
-      renderAdminProductsList();
-      showToast('🗑️ Produto excluído!');
-    }
-  }
-
-  function saveStoreSettings() {
-    storeSettings = {
-      name: document.getElementById('storeNameInput').value.trim() || 'Minha Vitrine de Afiliado',
-      description: document.getElementById('storeDescInput').value.trim() || 'Os melhores produtos com ofertas exclusivas!'
-    };
-    localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
-    applyStoreSettings();
-    showToast('✅ Configurações salvas!');
-    closeModal('adminModal');
-  }
-
-  function saveProducts() {
-    try {
-      localStorage.setItem('afiliado_products', JSON.stringify(products));
-    } catch (err) {
-      showToast('⚠️ Armazenamento cheio! Remova alguns produtos.');
-    }
-  }
-
-  function exportData() {
-    const data = { products, settings: storeSettings, exportedAt: new Date().toISOString() };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `vitrine-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('💾 Backup exportado!');
-  }
-
-  function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (data.products) products = data.products;
-        if (data.settings) {
-          storeSettings = data.settings;
-          localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
-          applyStoreSettings();
-        }
-        saveProducts();
-        renderCategories();
-        renderProducts();
-        renderAdminProductsList();
-        showToast('📥 Dados importados com sucesso!');
-      } catch (err) {
-        showToast('❌ Erro ao importar arquivo!');
-      }
-    };
-    reader.readAsText(file);
-  }
-
-  function shareStore() {
-    const text = `Confira minha vitrine de produtos: ${window.location.href}`;
-    if (navigator.share) {
-      navigator.share({ title: storeSettings.name || 'Minha Vitrine', text, url: window.location.href });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      showToast('🔗 Link copiado!');
-    }
-  }
-
-  function showToast(msg) {
-    const toast = document.getElementById('toast');
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  }
-
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.classList.remove('active');
-    });
-  });
-
-  init();
-</script>
-
-</body>
-</html>
+        <div id="tab-
