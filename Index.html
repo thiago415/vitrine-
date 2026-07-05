@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Minha Vitrine de Afiliado</title>
+<meta name="description" content="Os melhores produtos com ofertas exclusivas para você!">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+  
+  :root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --accent: #ec4899;
+    --bg: #0f0f1e;
+    --bg-card: #1a1a2e;
+    --bg-soft: #252540;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: #2d2d4a;
+    --success: #10b981;
+    --danger: #ef4444;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 100px;
+    background-image: 
+      radial-gradient(circle at 20% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 100%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+  }
+  
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 30px 20px 20px;
+    position: relative;
+  }
+  
+  .logo {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  h1 {
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* BOTÃO ADMIN TOPO - NOVO! */
+  .admin-top-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    min-height: 56px;
+    touch-action: manipulation;
+  }
+  
+  .admin-top-btn:active {
+    transform: scale(0.95);
+  }
+  
+  /* CONTROLES */
+  .controls {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .search-box {
+    flex: 1;
+    min-width: 250px;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    color: var(--text);
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+  
+  .search-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  
+  .search-box::before {
+    content: "🔍";
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+  }
+  
+  .btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    touch-action: manipulation;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+  }
+  
+  .btn-ghost {
+    background: var(--bg-card);
+    color: var(--text);
+    border: 2px solid var(--border);
+  }
+  
+  .btn-danger { background: var(--danger); color: white; }
+  .btn-success { background: var(--success); color: white; }
+  
+  /* CATEGORIAS */
+  .categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .category-chip {
+    padding: 10px 18px;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    touch-action: manipulation;
+  }
+  
+  .category-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+  
+  /* GRID DE PRODUTOS */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  
+  .product-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 220px;
+    background: var(--bg-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .badge-offer {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 2;
+  }
+  
+  .product-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-category {
+    color: var(--primary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  
+  .product-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  
+  .product-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    flex: 1;
+    line-height: 1.5;
+  }
+  
+  .product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .price-current {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--success);
+  }
+  
+  .price-old {
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-decoration: line-through;
+  }
+  
+  .btn-buy {
+    display: block;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    min-height: 48px;
+    touch-action: manipulation;
+  }
+  
+  .btn-buy:active {
+    transform: scale(0.98);
+  }
+  
+  /* BOTÃO ADMIN FLUTUANTE - MAIOR */
+  .admin-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
+    z-index: 100;
+    touch-action: manipulation;
+  }
+  
+  .admin-fab:active {
+    transform: scale(0.9);
+  }
+  
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .modal-overlay.active { display: flex; }
+  
+  .modal {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    max-width: 550px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    margin: auto;
+  }
+  
+  .modal h2 {
+    margin-bottom: 20px;
+    padding-right: 40px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.4rem;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--bg-soft);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1.3rem;
+    touch-action: manipulation;
+  }
+  
+  .form-group { margin-bottom: 16px; }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-soft);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 16px;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: var(--bg-soft);
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  
+  .checkbox-group input { width: auto; }
+  
+  .modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .modal-actions .btn { flex: 1; justify-content: center; min-width: 120px; }
+  
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  
+  .empty-state .icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  
+  .toast {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--success);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 2000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    text-align: center;
+  }
+  
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  
+  @media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    .logo { font-size: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .modal { padding: 20px 16px; }
+    .admin-fab { width: 64px; height: 64px; font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo">🛍️</div>
+    <h1 id="storeTitle">Minha Vitrine de Afiliado</h1>
+    <p class="subtitle" id="storeSubtitle">Os melhores produtos com ofertas exclusivas selecionados especialmente para você!</p>
+  </header>
+
+  <!-- BOTÃO ADMIN NO TOPO - NOVO E BEM VISÍVEL -->
+  <button class="admin-top-btn" onclick="openAdmin()">⚙️ Gerenciar Minha Vitrine</button>
+
+  <div class="controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar produtos...">
+    </div>
+    <button class="btn btn-ghost" onclick="shareStore()">📤 Compartilhar</button>
+  </div>
+
+  <div class="categories" id="categoriesContainer"></div>
+
+  <div class="products-grid" id="productsGrid"></div>
+</div>
+
+<!-- BOTÃO FLUTUANTE TAMBIÉM -->
+<button class="admin-fab" onclick="openAdmin()" aria-label="Abrir painel admin">⚙️</button>
+
+<!-- MODAL ADMIN -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
+    <h2>⚙️ Painel do Afiliado</h2>
+    
+    <div class="form-group">
+      <label>Nome da sua vitrine</label>
+      <input type="text" id="storeNameInput" placeholder="Ex: Vitrine da Maria">
+    </div>
+    
+    <div class="form-group">
+      <label>Descrição da vitrine</label>
+      <textarea id="storeDescInput" placeholder="Uma frase sobre seus produtos"></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+      <button class="btn btn-primary" onclick="openProductForm()">➕ Adicionar Produto</button>
+      <button class="btn btn-ghost" onclick="exportData()">💾 Exportar</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">📥 Importar</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    </div>
+    
+    <div id="adminProductsList" style="max-height: 300px; overflow-y: auto;"></div>
+    
+    <div class="modal-actions">
+      <button class="btn btn-success" onclick="saveStoreSettings()">💾 Salvar</button>
+      <button class="btn btn-ghost" onclick="closeModal('adminModal')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRODUTO -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('productModal')">✕</button>
+    <h2 id="productModalTitle">➕ Novo Produto</h2>
+    
+    <form id="productForm" onsubmit="saveProduct(event)">
+      <input type="hidden" id="productId">
+      
+      <div class="form-group">
+        <label>Nome do produto *</label>
+        <input type="text" id="productName" required placeholder="Ex: Curso de Marketing Digital">
+      </div>
+      
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="productDesc" placeholder="Descreva o produto..."></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>URL da imagem (opcional)</label>
+        <input type="url" id="productImage" placeholder="https://exemplo.com/imagem.jpg">
+      </div>
+      
+      <div class="form-group">
+        <label>Emoji do produto (se não tiver imagem)</label>
+        <input type="text" id="productEmoji" placeholder="📚 💻 🎧 👟" maxlength="4">
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>Categoria</label>
+          <input type="text" id="productCategory" placeholder="Ex: Cursos" list="categoriesList">
+          <datalist id="categoriesList"></datalist>
+        </div>
+        <div class="form-group">
+          <label>Preço atual (R$)</label>
+          <input type="number" id="productPrice" step="0.01" placeholder="97.00">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Preço original (opcional)</label>
+        <input type="number" id="productPriceOld" step="0.01" placeholder="197.00">
+      </div>
+      
+      <div class="form-group">
+        <label>Link de afiliado *</label>
+        <input type="url" id="productLink" required placeholder="https://seulinkdeafiliado.com">
+      </div>
+      
+      <div class="form-group">
+        <label class="checkbox-group">
+          <input type="checkbox" id="productOffer">
+          <span>🔥 Marcar como OFERTA em destaque</span>
+        </label>
+      </div>
+      
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">💾 Salvar Produto</button>
+        <button type="button" class="btn btn-ghost" onclick="closeModal('productModal')">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <p>💜 Feito com amor para afiliados de sucesso</p>
+  <p style="font-size: 0.85rem; margin-top: 8px;">Clique em "⚙️ Gerenciar Minha Vitrine" para adicionar produtos</p>
+</footer>
+
+<script>
+  let products = JSON.parse(localStorage.getItem('afiliado_products') || '[]');
+  let storeSettings = JSON.parse(localStorage.getItem('afiliado_settings') || '{}');
+  let currentFilter = 'all';
+  let currentSearch = '';
+  let editingId = null;
+
+  function init() {
+    applyStoreSettings();
+    renderCategories();
+    renderProducts();
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase();
+      renderProducts();
+    });
+  }
+
+  function applyStoreSettings() {
+    if (storeSettings.name) document.getElementById('storeTitle').textContent = storeSettings.name;
+    if (storeSettings.description) document.getElementById('storeSubtitle').textContent = storeSettings.description;
+  }
+
+  function renderCategories() {
+    const container = document.getElementById('categoriesContainer');
+    const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
+    
+    container.innerHTML = categories.map(cat => `
+      <div class="category-chip ${currentFilter === cat ? 'active' : ''}" 
+           onclick="filterByCategory('${cat.replace(/'/g, "\\'")}')">
+        ${cat === 'all' ? '🏷️ Todos' : cat}
+      </div>
+    `).join('');
+    
+    const datalist = document.getElementById('categoriesList');
+    const uniqueCats = [...new Set(products.map(p => p.category).filter(Boolean))];
+    datalist.innerHTML = uniqueCats.map(c => `<option value="${c}">`).join('');
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    let filtered = products;
+    
+    if (currentFilter !== 'all') {
+      filtered = filtered.filter(p => p.category === currentFilter);
+    }
+    
+    if (currentSearch) {
+      filtered = filtered.filter(p => 
+        p.name.toLowerCase().includes(currentSearch) ||
+        (p.description || '').toLowerCase().includes(currentSearch) ||
+        (p.category || '').toLowerCase().includes(currentSearch)
+      );
+    }
+    
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <div class="icon">📦</div>
+          <h3>Nenhum produto encontrado</h3>
+          <p>Clique em "⚙️ Gerenciar Minha Vitrine" para adicionar produtos!</p>
+        </div>
+      `;
+      return;
+    }
+    
+    grid.innerHTML = filtered.map(p => `
+      <div class="product-card">
+        ${p.isOffer ? '<div class="badge-offer">🔥 OFERTA</div>' : ''}
+        <div class="product-image">
+          ${p.image 
+            ? `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='📦'">`
+            : (p.emoji || '📦')
+          }
+        </div>
+        <div class="product-info">
+          ${p.category ? `<div class="product-category">${p.category}</div>` : ''}
+          <div class="product-name">${p.name}</div>
+          ${p.description ? `<div class="product-description">${p.description}</div>` : ''}
+          ${(p.price || p.priceOld) ? `
+            <div class="product-price">
+              ${p.price ? `<span class="price-current">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>` : ''}
+              ${p.priceOld ? `<span class="price-old">R$ ${parseFloat(p.priceOld).toFixed(2).replace('.', ',')}</span>` : ''}
+            </div>
+          ` : ''}
+          <a href="${p.link}" target="_blank" rel="noopener" class="btn-buy">
+            🛒 Quero este!
+          </a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filterByCategory(cat) {
+    currentFilter = cat;
+    renderCategories();
+    renderProducts();
+  }
+
+  function openAdmin() {
+    document.getElementById('storeNameInput').value = storeSettings.name || '';
+    document.getElementById('storeDescInput').value = storeSettings.description || '';
+    renderAdminProductsList();
+    document.getElementById('adminModal').classList.add('active');
+  }
+
+  function renderAdminProductsList() {
+    const list = document.getElementById('adminProductsList');
+    if (products.length === 0) {
+      list.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Nenhum produto cadastrado ainda.</p>';
+      return;
+    }
+    list.innerHTML = products.map(p => `
+      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-soft);border-radius:12px;margin-bottom:8px;">
+        <div style="font-size:1.5rem;">${p.emoji || '📦'}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">${p.category || 'Sem categoria'}</div>
+        </div>
+        <button onclick="editProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--text);cursor:pointer;font-size:1.1rem;">✏️</button>
+        <button onclick="deleteProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--danger);cursor:pointer;font-size:1.1rem;">🗑️</button>
+      </div>
+    `).join('');
+  }
+
+  function openProductForm(id = null) {
+    editingId = id;
+    const form = document.getElementById('productForm');
+    form.reset();
+    
+    if (id) {
+      const p = products.find(x => x.id === id);
+      document.getElementById('productModalTitle').textContent = '✏️ Editar Produto';
+      document.getElementById('productId').value = p.id;
+      document.getElementById('productName').value = p.name;
+      document.getElementById('productDesc').value = p.description || '';
+      document.getElementById('productImage').value = p.image || '';
+      document.getElementById('productEmoji').value = p.emoji || '';
+      document.getElementById('productCategory').value = p.category || '';
+      document.getElementById('productPrice').value = p.price || '';
+      document.getElementById('productPriceOld').value = p.priceOld || '';
+      document.getElementById('productLink').value = p.link;
+      document.getElementById('productOffer').checked = p.isOffer || false;
+    } else {
+      document.getElementById('productModalTitle').textContent = '➕ Novo Produto';
+    }
+    
+    document.getElementById('productModal').classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function saveProduct(e) {
+    e.preventDefault();
+    const data = {
+      id: editingId || Date.now().toString(),
+      name: document.getElementById('productName').value.trim(),
+      description: document.getElementById('productDesc').value.trim(),
+      image: document.getElementById('productImage').value.trim(),
+      emoji: document.getElementById('productEmoji').value.trim(),
+      category: document.getElementById('productCategory').value.trim(),
+      price: document.getElementById('productPrice').value,
+      priceOld: document.getElementById('productPriceOld').value,
+      link: document.getElementById('productLink').value.trim(),
+      isOffer: document.getElementById('productOffer').checked,
+      createdAt: editingId ? products.find(p => p.id === editingId).createdAt : new Date().toISOString()
+    };
+    
+    if (editingId) {
+      const idx = products.findIndex(p => p.id === editingId);
+      products[idx] = data;
+      showToast('✅ Produto atualizado!');
+    } else {
+      products.unshift(data);
+      showToast('✅ Produto adicionado!');
+    }
+    
+    saveProducts();
+    closeModal('productModal');
+    renderCategories();
+    renderProducts();
+    renderAdminProductsList();
+  }
+
+  function editProduct(id) {
+    openProductForm(id);
+  }
+
+  function deleteProduct(id) {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
+      products = products.filter(p => p.id !== id);
+      saveProducts();
+      renderCategories();
+      renderProducts();
+      renderAdminProductsList();
+      showToast('🗑️ Produto excluído!');
+    }
+  }
+
+  function saveStoreSettings() {
+    storeSettings = {
+      name: document.getElementById('storeNameInput').value.trim() || 'Minha Vitrine de Afiliado',
+      description: document.getElementById('storeDescInput').value.trim() || 'Os melhores produtos com ofertas exclusivas!'
+    };
+    localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
+    applyStoreSettings();
+    showToast('✅ Configurações salvas!');
+    closeModal('adminModal');
+  }
+
+  function saveProducts() {
+    localStorage.setItem('afiliado_products', JSON.stringify(products));
+  }
+
+  function exportData() {
+    const data = { products, settings: storeSettings, exportedAt: new Date().toISOString() };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `vitrine-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('💾 Backup exportado!');
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.products) products = data.products;
+        if (data.settings) {
+          storeSettings = data.settings;
+          localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
+          applyStoreSettings();
+        }
+        saveProducts();
+        renderCategories();
+        renderProducts();
+        renderAdminProductsList();
+        showToast('📥 Dados importados com sucesso!');
+      } catch (err) {
+        showToast('❌ Erro ao importar arquivo!');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function shareStore() {
+    const text = `Confira minha vitrine de produtos: ${window.location.href}`;
+    if (navigator.share) {
+      navigator.share({ title: storeSettings.name || 'Minha Vitrine', text, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      showToast('🔗 Link copiado!');
+    }
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('active');
+    });
+  });
+
+  init();
+</script>
+
+</body>
+</html>
