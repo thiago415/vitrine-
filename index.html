@@ -41,7 +41,7 @@ h1 { font-size:2rem; color:#ec4899; margin:10px 0; }
 .modal-close { position:absolute; top:16px; right:16px; background:#252540; border:none; width:40px; height:40px; border-radius:50%; color:white; cursor:pointer; font-size:1.3rem; }
 .form-group { margin-bottom:16px; }
 .form-group label { display:block; margin-bottom:8px; font-weight:600; color:#94a3b8; font-size:0.9rem; }
-.form-group input, .form-group textarea, .form-group select { width:100%; padding:12px 16px; background:#252540; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:16px; font-family:inherit; }
+.form-group input, .form-group textarea { width:100%; padding:12px 16px; background:#252540; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:16px; }
 .form-group textarea { resize:vertical; min-height:80px; }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .checkbox-group { display:flex; align-items:center; gap:10px; padding:12px; background:#252540; border-radius:12px; cursor:pointer; }
@@ -83,7 +83,6 @@ footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
   <div class="products-grid" id="productsGrid"></div>
 </div>
 
-<!-- MODAL ADMIN -->
 <div class="modal-overlay" id="adminModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
@@ -98,63 +97,7 @@ footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
       <label>Descrição</label>
       <textarea id="storeDescInput" placeholder="Uma frase sobre seus produtos"></textarea>
     </div>
-    <div class="import-section">
-  <h3>🔗 Importar do Linktree</h3>
-  <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">
-    Cole o link do seu Linktree OU cole os links manualmente
-  </p>
-  <input type="text" class="import-url-input" id="linktreeUrlInput" placeholder="https://linktr.ee/seuusuario">
-  <button class="btn btn-primary" onclick="fetchLinktree()" style="width:100%;justify-content:center;margin-bottom:12px;">
-    📥 Buscar Links Automaticamente
-  </button>
-  
-  <div class="import-manual">
-    <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:8px;">
-      💡 Ou cole os links manualmente (um por linha):
-    </p>
-    <textarea id="manualLinksInput" placeholder="Nome do Produto 1 - https://link1.com
-Nome do Produto 2 - https://link2.com
-Nome do Produto 3 - https://link3.com"></textarea>
-    <button class="btn" onclick="parseManualLinks()" style="width:100%;justify-content:center;margin-top:8px;">
-      📋 Processar Links Manuais
-    </button>
-  </div>
-  
-  <div id="linktreePreview" class="import-preview" style="display:none;"></div>
-  <div id="linktreeActions" style="display:none;margin-top:16px;gap:10px;">
-    <button class="btn btn-success" onclick="importSelectedLinks()" style="flex:1;justify-content:center;">
-      ✅ Importar Selecionados
-    </button>
-    <button class="btn" onclick="clearLinktreeImport()" style="flex:1;justify-content:center;">
-      ❌ Cancelar
-    </button>
-  </div>
-</div>
-    <div class="import-section">
-  <h3>🔗 Importar do Linktree</h3>
-  <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">
-    Cole o link do seu Linktree OU cole os links manualmente
-  </p>
-  <input type="text" class="import-url-input" id="linktreeUrlInput" placeholder="https://linktr.ee/seuusuario">
-  <button class="btn btn-primary" onclick="fetchLinktree()" style="width:100%;justify-content:center;margin-bottom:12px;">
-    📥 Buscar Links Automaticamente
-  </button>
-  
-  </button>
-  
-  <div class="import-manual">
-    <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:8px;">
-      💡 Ou cole os links manualmente (um por linha):
-    </p>
-    <textarea id="manualLinksInput" placeholder="Nome do Produto 1 - https://link1.com
-Nome do Produto 2 - https://link2.com
-Nome do Produto 3 - https://link3.com"></textarea>
-    <button class="btn" onclick="parseManualLinks()" style="width:100%;justify-content:center;margin-top:8px;">
-      📋 Processar Links Manuais
-
-  </div>
-      </div>
-</div>
+    
     <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
       <button class="btn btn-primary" onclick="openProductForm()">➕ Adicionar Produto</button>
       <button class="btn" onclick="exportData()">💾 Exportar</button>
@@ -171,7 +114,6 @@ Nome do Produto 3 - https://link3.com"></textarea>
   </div>
 </div>
 
-<!-- MODAL PRODUTO -->
 <div class="modal-overlay" id="productModal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('productModal')">✕</button>
@@ -596,160 +538,6 @@ document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
 });
 
 init();
-
-  let linktreeData = [];
-
-async function fetchLinktree() {
-  const url = document.getElementById('linktreeUrlInput').value.trim();
-  if (!url) {
-    showToast('❌ Digite a URL do Linktree!');
-    return;
-  }
-  
-  const match = url.match(/linktr\.ee\/([^\/\?]+)/i);
-  if (!match) {
-    showToast('❌ URL inválida! Use: https://linktr.ee/usuario');
-    return;
-  }
-  
-  const username = match[1];
-  showToast('🔄 Buscando links...');
-  
-  try {
-    const response = await fetch('https://linktr.ee/' + username);
-    const html = await response.text();
-    
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    
-    const links = [];
-    const allLinks = doc.querySelectorAll('a[href]');
-    
-    allLinks.forEach(function(a) {
-      const href = a.getAttribute('href');
-      const text = a.textContent.trim();
-      
-      if (href && href.startsWith('http') && 
-          !href.includes('linktr.ee') && 
-          !href.includes('facebook.com') &&
-          !href.includes('instagram.com') &&
-          !href.includes('twitter.com') &&
-          !href.includes('tiktok.com') &&
-          !href.includes('youtube.com') &&
-          text && text.length > 2 && text.length < 100) {
-        
-        const exists = links.find(function(l) { return l.url === href; });
-        if (!exists) {
-          links.push({ title: text, url: href });
-        }
-      }
-    });
-    
-    if (links.length === 0) {
-      showToast('⚠️ Nenhum link encontrado. Use a opção manual!');
-      return;
-    }
-    
-    linktreeData = links;
-    showLinktreePreview(links);
-    showToast('✅ ' + links.length + ' links encontrados!');
-    
-  } catch (err) {
-    console.error(err);
-    showToast('❌ Erro ao buscar. Use a opção manual!');
-  }
-}
-
-function parseManualLinks() {
-  const text = document.getElementById('manualLinksInput').value.trim();
-  if (!text) {
-    showToast('❌ Cole os links primeiro!');
-    return;
-  }
-  
-  const lines = text.split('\n').filter(function(l) { return l.trim(); });
-  const links = [];
-  
-  lines.forEach(function(line) {
-    const parts = line.split(/[-–—]/);
-    if (parts.length >= 2) {
-      const title = parts[0].trim();
-      const url = parts[parts.length - 1].trim();
-      if (url.startsWith('http')) {
-        links.push({ title: title, url: url });
-      }
-    } else if (line.startsWith('http')) {
-      links.push({ title: 'Produto', url: line.trim() });
-    }
-  });
-  
-  if (links.length === 0) {
-    showToast('❌ Formato inválido! Use: Nome - https://link.com');
-    return;
-  }
-  
-  linktreeData = links;
-  showLinktreePreview(links);
-  showToast('✅ ' + links.length + ' links processados!');
-}
-
-function showLinktreePreview(links) {
-  const preview = document.getElementById('linktreePreview');
-  preview.innerHTML = '<h4 style="margin-bottom:12px;color:#94a3b8;">📋 ' + links.length + ' links encontrados:</h4>' +
-    links.map(function(link, i) {
-      return '<div class="import-item">' +
-        '<input type="checkbox" id="lt-check-' + i + '" checked>' +
-        '<div class="import-item-info">' +
-          '<div class="import-item-title">' + link.title + '</div>' +
-          '<div class="import-item-url">' + link.url + '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  
-  preview.style.display = 'block';
-  document.getElementById('linktreeActions').style.display = 'flex';
-}
-
-function importSelectedLinks() {
-  const selected = linktreeData.filter(function(link, i) {
-    const cb = document.getElementById('lt-check-' + i);
-    return cb && cb.checked;
-  });
-  
-  if (selected.length === 0) {
-    showToast('⚠️ Selecione pelo menos um!');
-    return;
-  }
-  
-  selected.forEach(function(link) {
-    products.unshift({
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-      name: link.title,
-      description: '',
-      imageBase64: '',
-      category: 'Linktree',
-      price: '',
-      priceOld: '',
-      link: link.url,
-      isOffer: false,
-      createdAt: new Date().toISOString()
-    });
-  });
-  
-  saveProducts();
-  renderCategories();
-  renderProducts();
-  clearLinktreeImport();
-  showToast('✅ ' + selected.length + ' produto(s) importado(s)!');
-}
-
-function clearLinktreeImport() {
-  document.getElementById('linktreeUrlInput').value = '';
-  document.getElementById('manualLinksInput').value = '';
-  document.getElementById('linktreePreview').style.display = 'none';
-  document.getElementById('linktreeActions').style.display = 'none';
-  linktreeData = [];
-}
 </script>
 
 </body>
