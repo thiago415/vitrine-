@@ -743,4 +743,167 @@
         <div style="font-size:1.5rem;">${p.emoji || '📦'}</div>
         <div style="flex:1;min-width:0;">
           <div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
-          <div style="font-size:0.85rem;color:var(--text-muted);">${p.category || 'Sem c
+          <div style="font-size:0.85rem;color:var(--text-muted);">${p.category || 'Sem categoria'}</div>
+        </div>
+        <button onclick="editProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--text);cursor:pointer;font-size:1.1rem;">✏️</button>
+        <button onclick="deleteProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--danger);cursor:pointer;font-size:1.1rem;">🗑️</button>
+      </div>
+    `).join('');
+  }
+
+  function openProductForm(id = null) {
+    editingId = id;
+    const form = document.getElementById('productForm');
+    form.reset();
+    
+    if (id) {
+      const p = products.find(x => x.id === id);
+      document.getElementById('productModalTitle').textContent = '✏️ Editar Produto';
+      document.getElementById('productId').value = p.id;
+      document.getElementById('productName').value = p.name;
+      document.getElementById('productDesc').value = p.description || '';
+      document.getElementById('productImage').value = p.image || '';
+      document.getElementById('productEmoji').value = p.emoji || '';
+      document.getElementById('productCategory').value = p.category || '';
+      document.getElementById('productPrice').value = p.price || '';
+      document.getElementById('productPriceOld').value = p.priceOld || '';
+      document.getElementById('productLink').value = p.link;
+      document.getElementById('productOffer').checked = p.isOffer || false;
+    } else {
+      document.getElementById('productModalTitle').textContent = '➕ Novo Produto';
+    }
+    
+    document.getElementById('productModal').classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function saveProduct(e) {
+    e.preventDefault();
+    const data = {
+      id: editingId || Date.now().toString(),
+      name: document.getElementById('productName').value.trim(),
+      description: document.getElementById('productDesc').value.trim(),
+      image: document.getElementById('productImage').value.trim(),
+      emoji: document.getElementById('productEmoji').value.trim(),
+      category: document.getElementById('productCategory').value.trim(),
+      price: document.getElementById('productPrice').value,
+      priceOld: document.getElementById('productPriceOld').value,
+      link: document.getElementById('productLink').value.trim(),
+      isOffer: document.getElementById('productOffer').checked,
+      createdAt: editingId ? products.find(p => p.id === editingId).createdAt : new Date().toISOString()
+    };
+    
+    if (editingId) {
+      const idx = products.findIndex(p => p.id === editingId);
+      products[idx] = data;
+      showToast('✅ Produto atualizado!');
+    } else {
+      products.unshift(data);
+      showToast('✅ Produto adicionado!');
+    }
+    
+    saveProducts();
+    closeModal('productModal');
+    renderCategories();
+    renderProducts();
+    renderAdminProductsList();
+  }
+
+  function editProduct(id) {
+    openProductForm(id);
+  }
+
+  function deleteProduct(id) {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
+      products = products.filter(p => p.id !== id);
+      saveProducts();
+      renderCategories();
+      renderProducts();
+      renderAdminProductsList();
+      showToast('🗑️ Produto excluído!');
+    }
+  }
+
+  function saveStoreSettings() {
+    storeSettings = {
+      name: document.getElementById('storeNameInput').value.trim() || 'Minha Vitrine de Afiliado',
+      description: document.getElementById('storeDescInput').value.trim() || 'Os melhores produtos com ofertas exclusivas!'
+    };
+    localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
+    applyStoreSettings();
+    showToast('✅ Configurações salvas!');
+    closeModal('adminModal');
+  }
+
+  function saveProducts() {
+    localStorage.setItem('afiliado_products', JSON.stringify(products));
+  }
+
+  function exportData() {
+    const data = { products, settings: storeSettings, exportedAt: new Date().toISOString() };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `vitrine-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('💾 Backup exportado!');
+  }
+
+  function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (data.products) products = data.products;
+        if (data.settings) {
+          storeSettings = data.settings;
+          localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
+          applyStoreSettings();
+        }
+        saveProducts();
+        renderCategories();
+        renderProducts();
+        renderAdminProductsList();
+        showToast('📥 Dados importados com sucesso!');
+      } catch (err) {
+        showToast('❌ Erro ao importar arquivo!');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function shareStore() {
+    const text = `Confira minha vitrine de produtos: ${window.location.href}`;
+    if (navigator.share) {
+      navigator.share({ title: storeSettings.name || 'Minha Vitrine', text, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      showToast('🔗 Link copiado!');
+    }
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('active');
+    });
+  });
+
+  init();
+</script>
+
+</body>
+</html>
