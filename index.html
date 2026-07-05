@@ -34,18 +34,9 @@
   
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
   
-  /* HEADER */
-  header {
-    text-align: center;
-    padding: 30px 20px 20px;
-    position: relative;
-  }
+  header { text-align: center; padding: 30px 20px 20px; }
   
-  .logo {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    animation: float 3s ease-in-out infinite;
-  }
+  .logo { font-size: 3rem; margin-bottom: 10px; animation: float 3s ease-in-out infinite; }
   
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -61,14 +52,8 @@
     margin-bottom: 10px;
   }
   
-  .subtitle {
-    color: var(--text-muted);
-    font-size: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
+  .subtitle { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto; }
   
-  /* BOTÃO ADMIN TOPO - NOVO! */
   .admin-top-btn {
     display: block;
     margin: 20px auto;
@@ -85,25 +70,11 @@
     touch-action: manipulation;
   }
   
-  .admin-top-btn:active {
-    transform: scale(0.95);
-  }
+  .admin-top-btn:active { transform: scale(0.95); }
   
-  /* CONTROLES */
-  .controls {
-    display: flex;
-    gap: 12px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  .controls { display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap; justify-content: center; }
   
-  .search-box {
-    flex: 1;
-    min-width: 250px;
-    max-width: 500px;
-    position: relative;
-  }
+  .search-box { flex: 1; min-width: 250px; max-width: 500px; position: relative; }
   
   .search-box input {
     width: 100%;
@@ -113,13 +84,9 @@
     border-radius: 50px;
     color: var(--text);
     font-size: 1rem;
-    transition: all 0.3s;
   }
   
-  .search-box input:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
+  .search-box input:focus { outline: none; border-color: var(--primary); }
   
   .search-box::before {
     content: "🔍";
@@ -137,7 +104,6 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -145,28 +111,12 @@
     touch-action: manipulation;
   }
   
-  .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: white;
-  }
-  
-  .btn-ghost {
-    background: var(--bg-card);
-    color: var(--text);
-    border: 2px solid var(--border);
-  }
-  
+  .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; }
+  .btn-ghost { background: var(--bg-card); color: var(--text); border: 2px solid var(--border); }
   .btn-danger { background: var(--danger); color: white; }
   .btn-success { background: var(--success); color: white; }
   
-  /* CATEGORIAS */
-  .categories {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
+  .categories { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
   
   .category-chip {
     padding: 10px 18px;
@@ -174,19 +124,13 @@
     border: 2px solid var(--border);
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s;
     font-size: 0.9rem;
     color: var(--text-muted);
     touch-action: manipulation;
   }
   
-  .category-chip.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: white;
-  }
+  .category-chip.active { background: var(--primary); border-color: var(--primary); color: white; }
   
-  /* GRID DE PRODUTOS */
   .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -199,7 +143,6 @@
     border: 2px solid var(--border);
     border-radius: 20px;
     overflow: hidden;
-    transition: all 0.3s;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -217,11 +160,7 @@
     position: relative;
   }
   
-  .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  .product-image img { width: 100%; height: 100%; object-fit: cover; }
   
   .badge-offer {
     position: absolute;
@@ -236,12 +175,7 @@
     z-index: 2;
   }
   
-  .product-info {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+  .product-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
   
   .product-category {
     color: var(--primary);
@@ -252,12 +186,7 @@
     font-weight: 600;
   }
   
-  .product-name {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
+  .product-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
   
   .product-description {
     color: var(--text-muted);
@@ -267,25 +196,10 @@
     line-height: 1.5;
   }
   
-  .product-price {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-  }
+  .product-price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
   
-  .price-current {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--success);
-  }
-  
-  .price-old {
-    font-size: 1rem;
-    color: var(--text-muted);
-    text-decoration: line-through;
-  }
+  .price-current { font-size: 1.6rem; font-weight: 800; color: var(--success); }
+  .price-old { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; }
   
   .btn-buy {
     display: block;
@@ -295,7 +209,6 @@
     border: none;
     border-radius: 12px;
     font-weight: 700;
-    cursor: pointer;
     text-decoration: none;
     text-align: center;
     font-size: 1rem;
@@ -303,11 +216,8 @@
     touch-action: manipulation;
   }
   
-  .btn-buy:active {
-    transform: scale(0.98);
-  }
+  .btn-buy:active { transform: scale(0.98); }
   
-  /* BOTÃO ADMIN FLUTUANTE - MAIOR */
   .admin-fab {
     position: fixed;
     bottom: 24px;
@@ -325,11 +235,8 @@
     touch-action: manipulation;
   }
   
-  .admin-fab:active {
-    transform: scale(0.9);
-  }
+  .admin-fab:active { transform: scale(0.9); }
   
-  /* MODAL */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -380,7 +287,6 @@
     color: var(--text);
     cursor: pointer;
     font-size: 1.3rem;
-    touch-action: manipulation;
   }
   
   .form-group { margin-bottom: 16px; }
@@ -403,24 +309,16 @@
     border-radius: 12px;
     color: var(--text);
     font-size: 16px;
-    transition: all 0.3s;
     font-family: inherit;
   }
   
   .form-group input:focus,
   .form-group textarea:focus,
-  .form-group select:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
+  .form-group select:focus { outline: none; border-color: var(--primary); }
   
   .form-group textarea { resize: vertical; min-height: 80px; }
   
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   
   .checkbox-group {
     display: flex;
@@ -434,26 +332,11 @@
   
   .checkbox-group input { width: auto; }
   
-  .modal-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-  
+  .modal-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
   .modal-actions .btn { flex: 1; justify-content: center; min-width: 120px; }
   
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-muted);
-  }
-  
-  .empty-state .icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    opacity: 0.5;
-  }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+  .empty-state .icon { font-size: 4rem; margin-bottom: 20px; opacity: 0.5; }
   
   footer {
     text-align: center;
@@ -476,15 +359,154 @@
     opacity: 0;
     transition: all 0.3s;
     z-index: 2000;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     max-width: 90%;
     text-align: center;
   }
   
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  
+  /* 🆕 ESTILOS DO UPLOAD DE IMAGEM */
+  .image-upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    background: var(--bg-soft);
+    cursor: pointer;
+    transition: all 0.3s;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
   }
+  
+  .image-upload-area:hover, .image-upload-area.dragover {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+  }
+  
+  .image-upload-area .upload-icon {
+    font-size: 3rem;
+    opacity: 0.7;
+  }
+  
+  .image-upload-area .upload-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  
+  .image-upload-area .upload-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  
+  .upload-btn {
+    padding: 10px 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    touch-action: manipulation;
+  }
+  
+  .upload-btn.secondary {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+  }
+  
+  .image-preview {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  
+  .remove-image-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    touch-action: manipulation;
+    z-index: 2;
+  }
+  
+  .image-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    background: var(--bg-soft);
+    padding: 4px;
+    border-radius: 12px;
+  }
+  
+  .image-tab {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    touch-action: manipulation;
+  }
+  
+  .image-tab.active {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  
+  .emoji-picker {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+    padding: 12px;
+    background: var(--bg-soft);
+    border-radius: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .emoji-option {
+    font-size: 1.8rem;
+    padding: 8px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  
+  .emoji-option.selected {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.2);
+  }
+  
+  .emoji-option:active { transform: scale(0.9); }
   
   @media (max-width: 600px) {
     h1 { font-size: 1.6rem; }
@@ -492,6 +514,7 @@
     .form-row { grid-template-columns: 1fr; }
     .modal { padding: 20px 16px; }
     .admin-fab { width: 64px; height: 64px; font-size: 1.8rem; }
+    .emoji-picker { grid-template-columns: repeat(6, 1fr); }
   }
 </style>
 </head>
@@ -504,7 +527,6 @@
     <p class="subtitle" id="storeSubtitle">Os melhores produtos com ofertas exclusivas selecionados especialmente para você!</p>
   </header>
 
-  <!-- BOTÃO ADMIN NO TOPO - NOVO E BEM VISÍVEL -->
   <button class="admin-top-btn" onclick="openAdmin()">⚙️ Gerenciar Minha Vitrine</button>
 
   <div class="controls">
@@ -515,11 +537,9 @@
   </div>
 
   <div class="categories" id="categoriesContainer"></div>
-
   <div class="products-grid" id="productsGrid"></div>
 </div>
 
-<!-- BOTÃO FLUTUANTE TAMBIÉM -->
 <button class="admin-fab" onclick="openAdmin()" aria-label="Abrir painel admin">⚙️</button>
 
 <!-- MODAL ADMIN -->
@@ -573,14 +593,55 @@
         <textarea id="productDesc" placeholder="Descreva o produto..."></textarea>
       </div>
       
+      <!-- 🆕 NOVO SISTEMA DE IMAGEM -->
       <div class="form-group">
-        <label>URL da imagem (opcional)</label>
-        <input type="url" id="productImage" placeholder="https://exemplo.com/imagem.jpg">
-      </div>
-      
-      <div class="form-group">
-        <label>Emoji do produto (se não tiver imagem)</label>
-        <input type="text" id="productEmoji" placeholder="📚 💻 🎧 👟" maxlength="4">
+        <label>Imagem do produto</label>
+        
+        <div class="image-tabs">
+          <button type="button" class="image-tab active" onclick="switchImageTab('upload')">📷 Foto</button>
+          <button type="button" class="image-tab" onclick="switchImageTab('emoji')">😀 Emoji</button>
+          <button type="button" class="image-tab" onclick="switchImageTab('url')">🔗 Link</button>
+        </div>
+        
+        <!-- ABA UPLOAD -->
+        <div id="tab-upload" class="tab-content active">
+          <div class="image-upload-area" id="uploadArea">
+            <div id="uploadPlaceholder">
+              <div class="upload-icon">📸</div>
+              <div class="upload-text">Toque para adicionar uma imagem</div>
+              <div class="upload-buttons">
+                <button type="button" class="upload-btn" onclick="document.getElementById('imageFileInput').click()">
+                  🖼️ Galeria
+                </button>
+                <button type="button" class="upload-btn secondary" onclick="document.getElementById('imageCameraInput').click()">
+                  📷 Câmera
+                </button>
+              </div>
+            </div>
+            <img id="imagePreview" class="image-preview" style="display:none;" alt="Preview">
+            <button type="button" id="removeImageBtn" class="remove-image-btn" style="display:none;" onclick="removeImage(event)">✕</button>
+          </div>
+          <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+          <input type="file" id="imageCameraInput" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(event)">
+          <input type="hidden" id="productImageBase64">
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;text-align:center;">
+            💡 Dica: imagens até 500KB funcionam melhor
+          </p>
+        </div>
+        
+        <!-- ABA EMOJI -->
+        <div id="tab-emoji" class="tab-content">
+          <div class="emoji-picker" id="emojiPicker"></div>
+          <input type="hidden" id="productEmoji">
+        </div>
+        
+        <!-- ABA URL -->
+        <div id="tab-url" class="tab-content">
+          <input type="url" id="productImage" placeholder="https://exemplo.com/imagem.jpg">
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">
+            💡 Cole o link direto da imagem (termina em .jpg, .png, etc)
+          </p>
+        </div>
       </div>
       
       <div class="form-row">
@@ -633,14 +694,27 @@
   let currentFilter = 'all';
   let currentSearch = '';
   let editingId = null;
+  let selectedEmoji = '';
+
+  // 🆕 EMOJIS DISPONÍVEIS
+  const emojis = ['📚','💻','🎧','👟','📱','⌚','💄','👜','🎮','🎬','🎵','🏋️','💪','🧘','🍎','🥗','💎','👑','🔥','⭐','💰','🎁','🛍️','📦','🏠','🚗','✈️','🎯','🌟','💡','🎨','📷','🎸','🎤','🧴','👗','👔','🕶️','💍','🎓'];
 
   function init() {
     applyStoreSettings();
     renderCategories();
     renderProducts();
+    renderEmojiPicker();
     document.getElementById('searchInput').addEventListener('input', (e) => {
       currentSearch = e.target.value.toLowerCase();
       renderProducts();
+    });
+    
+    // Permitir arrastar imagem para o upload
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+        document.getElementById('imageFileInput').click();
+      }
     });
   }
 
@@ -669,10 +743,7 @@
     const grid = document.getElementById('productsGrid');
     let filtered = products;
     
-    if (currentFilter !== 'all') {
-      filtered = filtered.filter(p => p.category === currentFilter);
-    }
-    
+    if (currentFilter !== 'all') filtered = filtered.filter(p => p.category === currentFilter);
     if (currentSearch) {
       filtered = filtered.filter(p => 
         p.name.toLowerCase().includes(currentSearch) ||
@@ -692,31 +763,32 @@
       return;
     }
     
-    grid.innerHTML = filtered.map(p => `
-      <div class="product-card">
-        ${p.isOffer ? '<div class="badge-offer">🔥 OFERTA</div>' : ''}
-        <div class="product-image">
-          ${p.image 
-            ? `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='📦'">`
-            : (p.emoji || '📦')
-          }
+    grid.innerHTML = filtered.map(p => {
+      const imageContent = p.imageBase64 
+        ? `<img src="${p.imageBase64}" alt="${p.name}">`
+        : p.image 
+          ? `<img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='📦'">`
+          : (p.emoji || '📦');
+      
+      return `
+        <div class="product-card">
+          ${p.isOffer ? '<div class="badge-offer">🔥 OFERTA</div>' : ''}
+          <div class="product-image">${imageContent}</div>
+          <div class="product-info">
+            ${p.category ? `<div class="product-category">${p.category}</div>` : ''}
+            <div class="product-name">${p.name}</div>
+            ${p.description ? `<div class="product-description">${p.description}</div>` : ''}
+            ${(p.price || p.priceOld) ? `
+              <div class="product-price">
+                ${p.price ? `<span class="price-current">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>` : ''}
+                ${p.priceOld ? `<span class="price-old">R$ ${parseFloat(p.priceOld).toFixed(2).replace('.', ',')}</span>` : ''}
+              </div>
+            ` : ''}
+            <a href="${p.link}" target="_blank" rel="noopener" class="btn-buy">🛒 Quero este!</a>
+          </div>
         </div>
-        <div class="product-info">
-          ${p.category ? `<div class="product-category">${p.category}</div>` : ''}
-          <div class="product-name">${p.name}</div>
-          ${p.description ? `<div class="product-description">${p.description}</div>` : ''}
-          ${(p.price || p.priceOld) ? `
-            <div class="product-price">
-              ${p.price ? `<span class="price-current">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>` : ''}
-              ${p.priceOld ? `<span class="price-old">R$ ${parseFloat(p.priceOld).toFixed(2).replace('.', ',')}</span>` : ''}
-            </div>
-          ` : ''}
-          <a href="${p.link}" target="_blank" rel="noopener" class="btn-buy">
-            🛒 Quero este!
-          </a>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   function filterByCategory(cat) {
@@ -725,6 +797,120 @@
     renderProducts();
   }
 
+  // 🆕 FUNÇÕES DE IMAGEM
+  function switchImageTab(tabName) {
+    document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    // Verificar se é imagem
+    if (!file.type.startsWith('image/')) {
+      showToast('❌ Selecione um arquivo de imagem!');
+      return;
+    }
+    
+    // Verificar tamanho (máx 5MB antes de comprimir)
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('❌ Imagem muito grande! Máx 5MB');
+      return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // Comprimir a imagem
+      compressImage(e.target.result, (compressedBase64) => {
+        document.getElementById('productImageBase64').value = compressedBase64;
+        document.getElementById('imagePreview').src = compressedBase64;
+        document.getElementById('imagePreview').style.display = 'block';
+        document.getElementById('uploadPlaceholder').style.display = 'none';
+        document.getElementById('removeImageBtn').style.display = 'block';
+        showToast('✅ Imagem carregada!');
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function compressImage(base64, callback) {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+      
+      // Redimensionar se for muito grande (máx 800px no maior lado)
+      const maxSize = 800;
+      if (width > height && width > maxSize) {
+        height = (height * maxSize) / width;
+        width = maxSize;
+      } else if (height > maxSize) {
+        width = (width * maxSize) / height;
+        height = maxSize;
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      // Converter para JPEG com qualidade 0.7 (bom equilíbrio)
+      const compressed = canvas.toDataURL('image/jpeg', 0.7);
+      callback(compressed);
+    };
+    img.src = base64;
+  }
+
+  function removeImage(event) {
+    event.stopPropagation();
+    document.getElementById('productImageBase64').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('uploadPlaceholder').style.display = 'flex';
+    document.getElementById('removeImageBtn').style.display = 'none';
+    document.getElementById('imageFileInput').value = '';
+    document.getElementById('imageCameraInput').value = '';
+  }
+
+  function renderEmojiPicker() {
+    const picker = document.getElementById('emojiPicker');
+    picker.innerHTML = emojis.map(e => 
+      `<button type="button" class="emoji-option" onclick="selectEmoji('${e}', this)">${e}</button>`
+    ).join('');
+  }
+
+  function selectEmoji(emoji, btn) {
+    selectedEmoji = emoji;
+    document.getElementById('productEmoji').value = emoji;
+    document.querySelectorAll('.emoji-option').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  function resetImageFields() {
+    document.getElementById('productImageBase64').value = '';
+    document.getElementById('productImage').value = '';
+    document.getElementById('productEmoji').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('uploadPlaceholder').style.display = 'flex';
+    document.getElementById('removeImageBtn').style.display = 'none';
+    document.getElementById('imageFileInput').value = '';
+    document.getElementById('imageCameraInput').value = '';
+    selectedEmoji = '';
+    document.querySelectorAll('.emoji-option').forEach(b => b.classList.remove('selected'));
+    
+    // Voltar para aba upload
+    document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelector('.image-tab').classList.add('active');
+    document.getElementById('tab-upload').classList.add('active');
+  }
+
+  // MODAIS
   function openAdmin() {
     document.getElementById('storeNameInput').value = storeSettings.name || '';
     document.getElementById('storeDescInput').value = storeSettings.description || '';
@@ -738,23 +924,30 @@
       list.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Nenhum produto cadastrado ainda.</p>';
       return;
     }
-    list.innerHTML = products.map(p => `
-      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-soft);border-radius:12px;margin-bottom:8px;">
-        <div style="font-size:1.5rem;">${p.emoji || '📦'}</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
-          <div style="font-size:0.85rem;color:var(--text-muted);">${p.category || 'Sem categoria'}</div>
+    list.innerHTML = products.map(p => {
+      const thumb = p.imageBase64 
+        ? `<img src="${p.imageBase64}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">`
+        : `<div style="font-size:1.5rem;">${p.emoji || '📦'}</div>`;
+      
+      return `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-soft);border-radius:12px;margin-bottom:8px;">
+          ${thumb}
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</div>
+            <div style="font-size:0.85rem;color:var(--text-muted);">${p.category || 'Sem categoria'}</div>
+          </div>
+          <button onclick="editProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--text);cursor:pointer;font-size:1.1rem;">✏️</button>
+          <button onclick="deleteProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--danger);cursor:pointer;font-size:1.1rem;">🗑️</button>
         </div>
-        <button onclick="editProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--text);cursor:pointer;font-size:1.1rem;">✏️</button>
-        <button onclick="deleteProduct('${p.id}')" style="background:var(--bg-card);border:none;width:40px;height:40px;border-radius:10px;color:var(--danger);cursor:pointer;font-size:1.1rem;">🗑️</button>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   function openProductForm(id = null) {
     editingId = id;
     const form = document.getElementById('productForm');
     form.reset();
+    resetImageFields();
     
     if (id) {
       const p = products.find(x => x.id === id);
@@ -763,12 +956,37 @@
       document.getElementById('productName').value = p.name;
       document.getElementById('productDesc').value = p.description || '';
       document.getElementById('productImage').value = p.image || '';
-      document.getElementById('productEmoji').value = p.emoji || '';
       document.getElementById('productCategory').value = p.category || '';
       document.getElementById('productPrice').value = p.price || '';
       document.getElementById('productPriceOld').value = p.priceOld || '';
       document.getElementById('productLink').value = p.link;
       document.getElementById('productOffer').checked = p.isOffer || false;
+      
+      // Carregar imagem existente
+      if (p.imageBase64) {
+        document.getElementById('productImageBase64').value = p.imageBase64;
+        document.getElementById('imagePreview').src = p.imageBase64;
+        document.getElementById('imagePreview').style.display = 'block';
+        document.getElementById('uploadPlaceholder').style.display = 'none';
+        document.getElementById('removeImageBtn').style.display = 'block';
+      } else if (p.emoji) {
+        document.getElementById('productEmoji').value = p.emoji;
+        selectedEmoji = p.emoji;
+        // Mudar para aba emoji
+        document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.image-tab')[1].classList.add('active');
+        document.getElementById('tab-emoji').classList.add('active');
+        // Selecionar o emoji no picker
+        document.querySelectorAll('.emoji-option').forEach(btn => {
+          if (btn.textContent === p.emoji) btn.classList.add('selected');
+        });
+      } else if (p.image) {
+        document.querySelectorAll('.image-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.image-tab')[2].classList.add('active');
+        document.getElementById('tab-url').classList.add('active');
+      }
     } else {
       document.getElementById('productModalTitle').textContent = '➕ Novo Produto';
     }
@@ -782,12 +1000,28 @@
 
   function saveProduct(e) {
     e.preventDefault();
+    
+    // Pegar a imagem da aba ativa
+    const activeTab = document.querySelector('.tab-content.active').id;
+    let imageBase64 = '';
+    let image = '';
+    let emoji = '';
+    
+    if (activeTab === 'tab-upload') {
+      imageBase64 = document.getElementById('productImageBase64').value;
+    } else if (activeTab === 'tab-emoji') {
+      emoji = document.getElementById('productEmoji').value || selectedEmoji;
+    } else if (activeTab === 'tab-url') {
+      image = document.getElementById('productImage').value.trim();
+    }
+    
     const data = {
       id: editingId || Date.now().toString(),
       name: document.getElementById('productName').value.trim(),
       description: document.getElementById('productDesc').value.trim(),
-      image: document.getElementById('productImage').value.trim(),
-      emoji: document.getElementById('productEmoji').value.trim(),
+      imageBase64: imageBase64,
+      image: image,
+      emoji: emoji,
       category: document.getElementById('productCategory').value.trim(),
       price: document.getElementById('productPrice').value,
       priceOld: document.getElementById('productPriceOld').value,
@@ -839,7 +1073,11 @@
   }
 
   function saveProducts() {
-    localStorage.setItem('afiliado_products', JSON.stringify(products));
+    try {
+      localStorage.setItem('afiliado_products', JSON.stringify(products));
+    } catch (err) {
+      showToast('⚠️ Armazenamento cheio! Remova alguns produtos.');
+    }
   }
 
   function exportData() {
