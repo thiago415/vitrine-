@@ -121,7 +121,17 @@ footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
   </div>
       </div>
     </div>
-    
+    <div class="import-section">
+  <h3>🔗 Importar Links</h3>
+  <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:12px;">Cole os links do Linktree (um por linha):</p>
+  <textarea id="manualLinksInput" class="import-manual" placeholder="Nome 1 - https://link1.com&#10;Nome 2 - https://link2.com"></textarea>
+  <button class="btn btn-primary" onclick="importManualLinks()" style="width:100%;justify-content:center;margin-top:12px;">📋 Importar Links</button>
+  <div id="linkPreview" class="import-preview" style="display:none"></div>
+  <div id="linkActions" style="display:none;margin-top:12px;gap:8px">
+    <button class="btn btn-success" onclick="confirmImport()" style="flex:1">✅ Confirmar</button>
+    <button class="btn" onclick="cancelImport()" style="flex:1">❌ Cancelar</button>
+  </div>
+    </div>
     <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
       <button class="btn btn-primary" onclick="openProductForm()">➕ Adicionar Produto</button>
       <button class="btn" onclick="exportData()">💾 Exportar</button>
