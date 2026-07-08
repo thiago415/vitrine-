@@ -1,767 +1,159 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minha Vitrine</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
-body { background:#0f0f1e; color:#f1f5f9; min-height:100vh; padding-bottom:100px; }
-.container { max-width:1200px; margin:0 auto; padding:20px; }
-header { text-align:center; padding:30px 20px; }
-.logo { font-size:3rem; }
-h1 { font-size:2rem; color:#ec4899; margin:10px 0; }
-.subtitle { color:#94a3b8; }
-.admin-btn { display:block; margin:20px auto; padding:16px 28px; background:#6366f1; color:white; border:none; border-radius:50px; font-size:1.1rem; font-weight:700; cursor:pointer; }
-.controls { display:flex; gap:12px; margin:20px 0; flex-wrap:wrap; justify-content:center; }
-.search-box { flex:1; min-width:250px; position:relative; }
-.search-box input { width:100%; padding:14px 20px 14px 48px; background:#1a1a2e; border:2px solid #2d2d4a; border-radius:50px; color:white; font-size:1rem; }
-.search-box::before { content:"🔍"; position:absolute; left:18px; top:50%; transform:translateY(-50%); }
-.btn { padding:14px 24px; border:none; border-radius:50px; font-size:1rem; font-weight:600; cursor:pointer; background:#1a1a2e; color:white; border:2px solid #2d2d4a; }
-.categories { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
-.category-chip { padding:10px 18px; background:#1a1a2e; border:2px solid #2d2d4a; border-radius:50px; cursor:pointer; color:#94a3b8; }
-.category-chip.active { background:#6366f1; color:white; border-color:#6366f1; }
-.products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px; }
-.product-card { background:#1a1a2e; border:2px solid #2d2d4a; border-radius:20px; overflow:hidden; display:flex; flex-direction:column; }
-.product-image { width:100%; height:220px; background:#252540; display:flex; align-items:center; justify-content:center; font-size:4rem; overflow:hidden; position:relative; }
-.product-image img { width:100%; height:100%; object-fit:cover; }
-.badge-offer { position:absolute; top:12px; right:12px; background:#ef4444; color:white; padding:6px 12px; border-radius:20px; font-size:0.8rem; font-weight:700; }
-.product-info { padding:20px; flex:1; display:flex; flex-direction:column; }
-.product-category { color:#6366f1; font-size:0.8rem; text-transform:uppercase; margin-bottom:8px; font-weight:600; }
-.product-name { font-size:1.15rem; font-weight:700; margin-bottom:10px; }
-.product-description { color:#94a3b8; font-size:0.9rem; margin-bottom:15px; flex:1; }
-.product-price { display:flex; gap:10px; margin-bottom:15px; align-items:baseline; flex-wrap:wrap; }
-.price-current { font-size:1.6rem; font-weight:800; color:#10b981; }
-.price-old { font-size:1rem; color:#94a3b8; text-decoration:line-through; }
-.btn-buy { display:block; padding:14px; background:#6366f1; color:white; border:none; border-radius:12px; font-weight:700; text-decoration:none; text-align:center; }
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:1000; padding:10px; overflow-y:auto; }
-.modal-overlay.active { display:flex; }
-.modal { background:#1a1a2e; border:2px solid #2d2d4a; border-radius:24px; padding:24px; max-width:550px; width:100%; max-height:90vh; overflow-y:auto; position:relative; }
-.modal h2 { margin-bottom:20px; color:#ec4899; font-size:1.4rem; padding-right:40px; }
-.modal-close { position:absolute; top:16px; right:16px; background:#252540; border:none; width:40px; height:40px; border-radius:50%; color:white; cursor:pointer; font-size:1.3rem; }
-.form-group { margin-bottom:16px; }
-.form-group label { display:block; margin-bottom:8px; font-weight:600; color:#94a3b8; font-size:0.9rem; }
-.form-group input, .form-group textarea { width:100%; padding:12px 16px; background:#252540; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:16px; }
-.form-group textarea { resize:vertical; min-height:80px; }
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.checkbox-group { display:flex; align-items:center; gap:10px; padding:12px; background:#252540; border-radius:12px; cursor:pointer; }
-.modal-actions { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
-.modal-actions .btn { flex:1; justify-content:center; }
-.btn-primary { background:#6366f1; color:white; border:none; }
-.btn-success { background:#10b981; color:white; border:none; }
-.image-upload { border:2px dashed #2d2d4a; border-radius:16px; padding:20px; text-align:center; background:#252540; cursor:pointer; min-height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; position:relative; }
-.image-upload img { max-width:100%; max-height:200px; border-radius:12px; }
-.image-upload-buttons { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
-.upload-btn { padding:10px 16px; background:#6366f1; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:600; }
-.upload-btn.secondary { background:#1a1a2e; border:2px solid #2d2d4a; }
-.remove-img { position:absolute; top:10px; right:10px; background:#ef4444; color:white; border:none; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1.2rem; }
-.toast { position:fixed; bottom:120px; left:50%; transform:translateX(-50%) translateY(100px); background:#10b981; color:white; padding:14px 24px; border-radius:50px; font-weight:600; opacity:0; transition:all 0.3s; z-index:2000; }
-.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-footer { text-align:center; padding:40px 20px; color:#94a3b8; margin-top:40px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiago Lino | Minhas Redes e Links</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-.linktree-section { background:#252540; border-radius:16px; padding:20px; margin-bottom:20px; }
-.linktree-section h3 { color:#6366f1; margin-bottom:16px; font-size:1.1rem; }
-.linktree-input { width:100%; padding:14px; background:#1a1a2e; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:1rem; margin-bottom:12px; }
-.linktree-preview { max-height:300px; overflow-y:auto; margin-top:16px; }
-.link-item { display:flex; align-items:center; gap:12px; padding:12px; background:#1a1a2e; border-radius:12px; margin-bottom:8px; }
-.link-item input[type="checkbox"] { width:20px; height:20px; cursor:pointer; }
-.link-info { flex:1; min-width:0; }
-.link-title { font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.link-url { font-size:0.85rem; color:#94a3b8; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.loading { display:inline-block; width:20px; height:20px; border:3px solid #2d2d4a; border-top-color:#6366f1; border-radius:50%; animation:spin 1s linear infinite; }
-@keyframes spin { to { transform:rotate(360deg); } }
-.method-tabs { display:flex; gap:8px; margin-bottom:12px; }
-.method-tab { flex:1; padding:10px; background:#1a1a2e; border:none; border-radius:8px; color:#94a3b8; cursor:pointer; font-weight:600; }
-.method-tab.active { background:#6366f1; color:white; }
-.tab-content { display:none; }
-.tab-content.active { display:block; }
-.manual-textarea { width:100%; min-height:150px; padding:12px; background:#1a1a2e; border:2px solid #2d2d4a; border-radius:12px; color:white; font-size:14px; font-family:monospace; resize:vertical; }
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-@media(max-width:600px){ h1{font-size:1.6rem;} .form-row{grid-template-columns:1fr;} }
-</style>
+        .container {
+            width: 100%;
+            max-width: 450px; /* Tamanho ideal para visualização em celulares */
+            background: #ffffff;
+            padding: 35px 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Cabeçalho do Perfil */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .perfil-foto {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ee4d2d, #ff5a00); /* Degradê moderno */
+            color: white;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        header h1 {
+            font-size: 22px;
+            color: #111;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Seção de Botões (Estilo Linktree) */
+        .redes-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn-rede {
+            display: block;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            border-radius: 12px;
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .btn-rede:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Botão de Destaque - Seus Produtos / Linktree */
+        .linktree-principal { 
+            background-color: #39e587; 
+            color: #000000;
+            font-size: 16px;
+            border: 2px solid #2bc471;
+        }
+
+        /* Cores das Redes Sociais */
+        .youtube { background-color: #FF0000; }
+        .tiktok { background-color: #010101; }
+        .kwai { background-color: #ffaa00; color: #111; }
+        .pinterest { background-color: #E60023; }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 11px;
+            color: #aaa;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <header>
-    <div class="logo">🛍️</div>
-    <h1 id="storeTitle">Minha Vitrine de Afiliado</h1>
-    <p class="subtitle" id="storeSubtitle">Os melhores produtos com ofertas exclusivas!</p>
-  </header>
 
-  <button class="admin-btn" onclick="openAdmin()">⚙️ Gerenciar Minha Vitrine</button>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="perfil-foto">🛍️</div>
+        <h1>Thiago Lino</h1>
+        <p>Acompanhe meus vídeos e acesse todos os achadinhos!</p>
+    </header>
 
-  <div class="controls">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Buscar produtos...">
-    </div>
-    <button class="btn" onclick="shareStore()">📤 Compartilhar</button>
-  </div>
+    <!-- Todos os seus links oficiais configurados -->
+    <section class="redes-section">
+        
+        <!-- O BOTÃO PRINCIPAL: Direto para os seus produtos afiliados -->
+        <a href="https://linktr.ee/pontodolink" target="_blank" class="btn-rede linktree-principal">
+            🛒 PRODUTOS E ACHADINHOS AQUI
+        </a>
 
-  <div class="categories" id="categoriesContainer"></div>
-  <div class="products-grid" id="productsGrid"></div>
+        <!-- Seus canais de divulgação -->
+        <a href="https://youtube.com/@thiagolino974" target="_blank" class="btn-rede youtube">
+            🎥 Canal no YouTube
+        </a>
+        
+        <a href="https://www.tiktok.com/@thia842?_r=1&_t=ZS-97rp3KndoBB" target="_blank" class="btn-rede tiktok">
+            🎵 Siga no TikTok
+        </a>
+        
+        <a href="https://k.kwai.com/u/@thiagolino132/xTM4dkCZ" target="_blank" class="btn-rede kwai">
+            🧡 Vídeos no Kwai
+        </a>
+        
+        <a href="https://pin.it/xtWSHiEFr" target="_blank" class="btn-rede pinterest">
+            📌 Inspirações no Pinterest
+        </a>
+
+    </section>
+
+    <footer>
+        &copy; 2026 - Thiago Lino. Todos os direitos reservados.
+    </footer>
+
 </div>
-
-<div class="modal-overlay" id="adminModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
-    <h2>⚙️ Painel do Afiliado</h2>
-    
-    <div class="form-group">
-      <label>Nome da vitrine</label>
-      <input type="text" id="storeNameInput" placeholder="Ex: Vitrine do Thiago">
-    </div>
-    
-    <div class="form-group">
-      <label>Descrição</label>
-      <textarea id="storeDescInput" placeholder="Uma frase sobre seus produtos"></textarea>
-    </div>
-    
-    <!-- LINKTREE IMPORT SECTION -->
-    <div class="linktree-section">
-      <h3>🔗 Importar do Linktree</h3>
-      
-      <div class="method-tabs">
-        <button class="method-tab active" onclick="switchMethod('auto')">🔄 Automático</button>
-        <button class="method-tab" onclick="switchMethod('manual')">📋 Manual</button>
-      </div>
-      
-      <!-- MÉTODO AUTOMÁTICO -->
-      <div id="method-auto" class="tab-content active">
-        <input type="text" class="linktree-input" id="linktreeUrl" placeholder="https://linktr.ee/pontodolink">
-        <button class="btn btn-primary" onclick="fetchLinktreeAuto()" style="width:100%;justify-content:center;">
-          🔍 Buscar Links (Automático)
-        </button>
-        <p style="color:#94a3b8;font-size:0.8rem;margin-top:8px;">
-          💡 Dica: Se der erro, use o método manual abaixo
-        </p>
-      </div>
-      
-      <!-- MÉTODO MANUAL -->
-      <div id="method-manual" class="tab-content">
-        <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:8px;">
-          1. Abra seu Linktree<br>
-          2. Copie os links (um por linha)<br>
-          3. Cole no formato: <strong>Nome - https://link.com</strong>
-        </p>
-        <textarea id="manualLinks" class="manual-textarea" placeholder="Curso de Marketing - https://hotmart.com/curso1
-E-book Grátis - https://eduzz.com/ebook
-Kit Completo - https://shopee.com/kit"></textarea>
-        <button class="btn btn-primary" onclick="parseManualLinks()" style="width:100%;justify-content:center;margin-top:12px;">
-          📋 Processar Links
-        </button>
-      </div>
-      
-      <div id="loadingIndicator" style="display:none;text-align:center;padding:20px;">
-        <div class="loading"></div>
-        <p style="margin-top:10px;color:#94a3b8;">Buscando links...</p>
-      </div>
-      
-      <div id="linktreePreview" class="linktree-preview" style="display:none;"></div>
-      <div id="linktreeActions" style="display:none;margin-top:16px;gap:10px;">
-        <button class="btn btn-success" onclick="importLinks()" style="flex:1;justify-content:center;">
-          ✅ Importar Selecionados
-        </button>
-        <button class="btn" onclick="cancelImport()" style="flex:1;justify-content:center;">
-          ❌ Cancelar
-        </button>
-      </div>
-    </div>
-    
-    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="openProductForm()">➕ Adicionar Produto</button>
-      <button class="btn" onclick="exportData()">💾 Exportar</button>
-      <button class="btn" onclick="document.getElementById('importFile').click()">📥 Importar</button>
-      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
-    </div>
-    
-    <div id="adminProductsList" style="max-height:300px;overflow-y:auto;"></div>
-    
-    <div class="modal-actions">
-      <button class="btn btn-success" onclick="saveStoreSettings()">💾 Salvar</button>
-      <button class="btn" onclick="closeModal('adminModal')">Fechar</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="productModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('productModal')">✕</button>
-    <h2 id="productModalTitle">➕ Novo Produto</h2>
-    
-    <form id="productForm" onsubmit="saveProduct(event)">
-      <input type="hidden" id="productId">
-      
-      <div class="form-group">
-        <label>Nome do produto *</label>
-        <input type="text" id="productName" required placeholder="Ex: Curso de Marketing">
-      </div>
-      
-      <div class="form-group">
-        <label>Descrição</label>
-        <textarea id="productDesc" placeholder="Descreva o produto..."></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label>Imagem do produto</label>
-        <div class="image-upload" id="imageUpload">
-          <div id="uploadPlaceholder">
-            <div style="font-size:3rem;">📸</div>
-            <div style="color:#94a3b8;">Adicione uma imagem</div>
-            <div class="image-upload-buttons">
-              <button type="button" class="upload-btn" onclick="document.getElementById('imageFileInput').click()">🖼️ Galeria</button>
-              <button type="button" class="upload-btn secondary" onclick="document.getElementById('imageCameraInput').click()">📷 Câmera</button>
-            </div>
-          </div>
-          <img id="imagePreview" style="display:none;" alt="Preview">
-          <button type="button" id="removeImageBtn" class="remove-img" style="display:none;" onclick="removeImage(event)">✕</button>
-        </div>
-        <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
-        <input type="file" id="imageCameraInput" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(event)">
-        <input type="hidden" id="productImageBase64">
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label>Categoria</label>
-          <input type="text" id="productCategory" placeholder="Ex: Cursos">
-        </div>
-        <div class="form-group">
-          <label>Preço (R$)</label>
-          <input type="number" id="productPrice" step="0.01" placeholder="97.00">
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Preço original (opcional)</label>
-        <input type="number" id="productPriceOld" step="0.01" placeholder="197.00">
-      </div>
-      
-      <div class="form-group">
-        <label>Link de afiliado *</label>
-        <input type="url" id="productLink" required placeholder="https://seulink.com">
-      </div>
-      
-      <div class="form-group">
-        <label class="checkbox-group">
-          <input type="checkbox" id="productOffer">
-          <span>🔥 Marcar como OFERTA</span>
-        </label>
-      </div>
-      
-      <div class="modal-actions">
-        <button type="submit" class="btn btn-primary">💾 Salvar</button>
-        <button type="button" class="btn" onclick="closeModal('productModal')">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<footer>
-  <p>💜 Vitrine de Afiliado</p>
-</footer>
-
-<script>
-let products = JSON.parse(localStorage.getItem('afiliado_products') || '[]');
-let storeSettings = JSON.parse(localStorage.getItem('afiliado_settings') || '{}');
-let currentFilter = 'all';
-let currentSearch = '';
-let editingId = null;
-let fetchedLinks = [];
-
-function init() {
-  applyStoreSettings();
-  renderCategories();
-  renderProducts();
-  document.getElementById('searchInput').addEventListener('input', function(e) {
-    currentSearch = e.target.value.toLowerCase();
-    renderProducts();
-  });
-}
-
-function applyStoreSettings() {
-  if (storeSettings.name) document.getElementById('storeTitle').textContent = storeSettings.name;
-  if (storeSettings.description) document.getElementById('storeSubtitle').textContent = storeSettings.description;
-}
-
-function renderCategories() {
-  const container = document.getElementById('categoriesContainer');
-  const categories = ['all'];
-  products.forEach(function(p) {
-    if (p.category && categories.indexOf(p.category) === -1) {
-      categories.push(p.category);
-    }
-  });
-  
-  container.innerHTML = categories.map(function(cat) {
-    const active = currentFilter === cat ? 'active' : '';
-    const label = cat === 'all' ? '🏷️ Todos' : cat;
-    return '<div class="category-chip ' + active + '" onclick="filterByCategory(\'' + cat.replace(/'/g, "\\'") + '\')">' + label + '</div>';
-  }).join('');
-}
-
-function renderProducts() {
-  const grid = document.getElementById('productsGrid');
-  let filtered = products;
-  
-  if (currentFilter !== 'all') {
-    filtered = filtered.filter(function(p) { return p.category === currentFilter; });
-  }
-  if (currentSearch) {
-    filtered = filtered.filter(function(p) {
-      return (p.name || '').toLowerCase().indexOf(currentSearch) !== -1 ||
-             (p.description || '').toLowerCase().indexOf(currentSearch) !== -1 ||
-             (p.category || '').toLowerCase().indexOf(currentSearch) !== -1;
-    });
-  }
-  
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#94a3b8;"><div style="font-size:4rem;margin-bottom:20px;">📦</div><h3>Nenhum produto encontrado</h3><p>Clique em "Gerenciar Minha Vitrine" para adicionar!</p></div>';
-    return;
-  }
-  
-  grid.innerHTML = filtered.map(function(p) {
-    let imageContent = '📦';
-    if (p.imageBase64) {
-      imageContent = '<img src="' + p.imageBase64 + '" alt="' + p.name + '">';
-    }
-    
-    let priceHtml = '';
-    if (p.price || p.priceOld) {
-      priceHtml = '<div class="product-price">';
-      if (p.price) priceHtml += '<span class="price-current">R$ ' + parseFloat(p.price).toFixed(2).replace('.', ',') + '</span>';
-      if (p.priceOld) priceHtml += '<span class="price-old">R$ ' + parseFloat(p.priceOld).toFixed(2).replace('.', ',') + '</span>';
-      priceHtml += '</div>';
-    }
-    
-    return '<div class="product-card">' +
-      (p.isOffer ? '<div class="badge-offer">🔥 OFERTA</div>' : '') +
-      '<div class="product-image">' + imageContent + '</div>' +
-      '<div class="product-info">' +
-        (p.category ? '<div class="product-category">' + p.category + '</div>' : '') +
-        '<div class="product-name">' + p.name + '</div>' +
-        (p.description ? '<div class="product-description">' + p.description + '</div>' : '') +
-        priceHtml +
-        '<a href="' + p.link + '" target="_blank" class="btn-buy">🛒 Quero este!</a>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-}
-
-function filterByCategory(cat) {
-  currentFilter = cat;
-  renderCategories();
-  renderProducts();
-}
-
-function switchMethod(method) {
-  document.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
-  
-  event.target.classList.add('active');
-  document.getElementById('method-' + method).classList.add('active');
-}
-
-// 🔄 MÉTODO AUTOMÁTICO (com proxy)
-async function fetchLinktreeAuto() {
-  const url = document.getElementById('linktreeUrl').value.trim();
-  if (!url) {
-    showToast('❌ Digite a URL do Linktree!');
-    return;
-  }
-  
-  const match = url.match(/linktr\.ee\/([^\/\?]+)/i);
-  if (!match) {
-    showToast('❌ URL inválida! Use: https://linktr.ee/usuario');
-    return;
-  }
-  
-  const username = match[1];
-  document.getElementById('loadingIndicator').style.display = 'block';
-  document.getElementById('linktreePreview').style.display = 'none';
-  document.getElementById('linktreeActions').style.display = 'none';
-  
-  try {
-    // Tentar API do Linktree primeiro
-    const apiUrl = 'https://api.linktr.ee/profiles/' + username + '/links';
-    const response = await fetch(apiUrl);
-    
-    if (!response.ok) throw new Error('API error');
-    
-    const data = await response.json();
-    const links = data.links || [];
-    
-    if (links.length === 0) {
-      showToast('⚠️ Nenhum link encontrado!');
-      document.getElementById('loadingIndicator').style.display = 'none';
-      return;
-    }
-    
-    fetchedLinks = links;
-    showPreview(links);
-    showToast('✅ ' + links.length + ' links encontrados!');
-    
-  } catch (error) {
-    console.error('Error:', error);
-    showToast('❌ Automático falhou. Use o método MANUAL!');
-    
-    // Instruir usuário a usar método manual
-    setTimeout(function() {
-      document.querySelector('.method-tab:last-child').click();
-    }, 1500);
-  } finally {
-    document.getElementById('loadingIndicator').style.display = 'none';
-  }
-}
-
-// 📋 MÉTODO MANUAL
-function parseManualLinks() {
-  const text = document.getElementById('manualLinks').value.trim();
-  if (!text) {
-    showToast('❌ Cole os links primeiro!');
-    return;
-  }
-  
-  const lines = text.split('\n').filter(function(l) { return l.trim(); });
-  const links = [];
-  
-  lines.forEach(function(line) {
-    const parts = line.split(/[-–—]/);
-    if (parts.length >= 2) {
-      const name = parts[0].trim();
-      const url = parts[parts.length - 1].trim();
-      if (url.startsWith('http')) {
-        links.push({ title: name, url: url });
-      }
-    } else if (line.startsWith('http')) {
-      links.push({ title: 'Produto', url: line.trim() });
-    }
-  });
-  
-  if (links.length === 0) {
-    showToast('❌ Formato inválido! Use: Nome - https://link.com');
-    return;
-  }
-  
-  fetchedLinks = links;
-  showPreview(links);
-  showToast('✅ ' + links.length + ' links processados!');
-}
-
-function showPreview(links) {
-  const preview = document.getElementById('linktreePreview');
-  preview.innerHTML = '<h4 style="margin-bottom:12px;color:#94a3b8;">📋 ' + links.length + ' links encontrados:</h4>' +
-    links.map(function(link, i) {
-      return '<div class="link-item">' +
-        '<input type="checkbox" id="lt-check-' + i + '" checked>' +
-        '<div class="link-info">' +
-          '<div class="link-title">' + (link.title || 'Link ' + (i+1)) + '</div>' +
-          '<div class="link-url">' + link.url + '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  
-  preview.style.display = 'block';
-  document.getElementById('linktreeActions').style.display = 'flex';
-}
-
-function importLinks() {
-  const selected = fetchedLinks.filter(function(link, i) {
-    const cb = document.getElementById('lt-check-' + i);
-    return cb && cb.checked;
-  });
-  
-  if (selected.length === 0) {
-    showToast('⚠️ Selecione pelo menos um link!');
-    return;
-  }
-  
-  selected.forEach(function(link) {
-    products.unshift({
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-      name: link.title || 'Produto',
-      description: '',
-      imageBase64: '',
-      category: 'Linktree',
-      price: '',
-      priceOld: '',
-      link: link.url,
-      isOffer: false,
-      createdAt: new Date().toISOString()
-    });
-  });
-  
-  saveProducts();
-  renderCategories();
-  renderProducts();
-  cancelImport();
-  showToast('✅ ' + selected.length + ' produto(s) importado(s)!');
-}
-
-function cancelImport() {
-  document.getElementById('linktreeUrl').value = '';
-  document.getElementById('manualLinks').value = '';
-  document.getElementById('linktreePreview').style.display = 'none';
-  document.getElementById('linktreeActions').style.display = 'none';
-  fetchedLinks = [];
-}
-
-function handleImageUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  if (!file.type.startsWith('image/')) {
-    showToast('❌ Selecione uma imagem!');
-    return;
-  }
-  if (file.size > 5 * 1024 * 1024) {
-    showToast('❌ Imagem muito grande! Máx 5MB');
-    return;
-  }
-  
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    compressImage(e.target.result, function(compressed) {
-      document.getElementById('productImageBase64').value = compressed;
-      document.getElementById('imagePreview').src = compressed;
-      document.getElementById('imagePreview').style.display = 'block';
-      document.getElementById('uploadPlaceholder').style.display = 'none';
-      document.getElementById('removeImageBtn').style.display = 'block';
-      showToast('✅ Imagem carregada!');
-    });
-  };
-  reader.readAsDataURL(file);
-}
-
-function compressImage(base64, callback) {
-  const img = new Image();
-  img.onload = function() {
-    const canvas = document.createElement('canvas');
-    let width = img.width;
-    let height = img.height;
-    const maxSize = 800;
-    if (width > height && width > maxSize) {
-      height = (height * maxSize) / width;
-      width = maxSize;
-    } else if (height > maxSize) {
-      width = (width * maxSize) / height;
-      height = maxSize;
-    }
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, width, height);
-    callback(canvas.toDataURL('image/jpeg', 0.7));
-  };
-  img.src = base64;
-}
-
-function removeImage(event) {
-  event.stopPropagation();
-  document.getElementById('productImageBase64').value = '';
-  document.getElementById('imagePreview').style.display = 'none';
-  document.getElementById('uploadPlaceholder').style.display = 'flex';
-  document.getElementById('removeImageBtn').style.display = 'none';
-  document.getElementById('imageFileInput').value = '';
-  document.getElementById('imageCameraInput').value = '';
-}
-
-function openAdmin() {
-  document.getElementById('storeNameInput').value = storeSettings.name || '';
-  document.getElementById('storeDescInput').value = storeSettings.description || '';
-  renderAdminProductsList();
-  document.getElementById('adminModal').classList.add('active');
-}
-
-function renderAdminProductsList() {
-  const list = document.getElementById('adminProductsList');
-  if (products.length === 0) {
-    list.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px;">Nenhum produto cadastrado.</p>';
-    return;
-  }
-  list.innerHTML = products.map(function(p) {
-    const thumb = p.imageBase64 
-      ? '<img src="' + p.imageBase64 + '" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">'
-      : '<div style="font-size:1.5rem;">📦</div>';
-    return '<div style="display:flex;align-items:center;gap:12px;padding:12px;background:#252540;border-radius:12px;margin-bottom:8px;">' +
-      thumb +
-      '<div style="flex:1;min-width:0;">' +
-        '<div style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + p.name + '</div>' +
-        '<div style="font-size:0.85rem;color:#94a3b8;">' + (p.category || 'Sem categoria') + '</div>' +
-      '</div>' +
-      '<button onclick="editProduct(\'' + p.id + '\')" style="background:#1a1a2e;border:none;width:40px;height:40px;border-radius:10px;color:white;cursor:pointer;font-size:1.1rem;">✏️</button>' +
-      '<button onclick="deleteProduct(\'' + p.id + '\')" style="background:#1a1a2e;border:none;width:40px;height:40px;border-radius:10px;color:#ef4444;cursor:pointer;font-size:1.1rem;">🗑️</button>' +
-    '</div>';
-  }).join('');
-}
-
-function openProductForm(id) {
-  editingId = id || null;
-  const form = document.getElementById('productForm');
-  form.reset();
-  document.getElementById('productImageBase64').value = '';
-  document.getElementById('imagePreview').style.display = 'none';
-  document.getElementById('uploadPlaceholder').style.display = 'flex';
-  document.getElementById('removeImageBtn').style.display = 'none';
-  document.getElementById('imageFileInput').value = '';
-  document.getElementById('imageCameraInput').value = '';
-  
-  if (id) {
-    const p = products.find(function(x) { return x.id === id; });
-    document.getElementById('productModalTitle').textContent = '✏️ Editar Produto';
-    document.getElementById('productId').value = p.id;
-    document.getElementById('productName').value = p.name;
-    document.getElementById('productDesc').value = p.description || '';
-    document.getElementById('productCategory').value = p.category || '';
-    document.getElementById('productPrice').value = p.price || '';
-    document.getElementById('productPriceOld').value = p.priceOld || '';
-    document.getElementById('productLink').value = p.link;
-    document.getElementById('productOffer').checked = p.isOffer || false;
-    
-    if (p.imageBase64) {
-      document.getElementById('productImageBase64').value = p.imageBase64;
-      document.getElementById('imagePreview').src = p.imageBase64;
-      document.getElementById('imagePreview').style.display = 'block';
-      document.getElementById('uploadPlaceholder').style.display = 'none';
-      document.getElementById('removeImageBtn').style.display = 'block';
-    }
-  } else {
-    document.getElementById('productModalTitle').textContent = '➕ Novo Produto';
-  }
-  
-  document.getElementById('productModal').classList.add('active');
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('active');
-}
-
-function saveProduct(e) {
-  e.preventDefault();
-  const data = {
-    id: editingId || Date.now().toString(),
-    name: document.getElementById('productName').value.trim(),
-    description: document.getElementById('productDesc').value.trim(),
-    imageBase64: document.getElementById('productImageBase64').value,
-    category: document.getElementById('productCategory').value.trim(),
-    price: document.getElementById('productPrice').value,
-    priceOld: document.getElementById('productPriceOld').value,
-    link: document.getElementById('productLink').value.trim(),
-    isOffer: document.getElementById('productOffer').checked,
-    createdAt: editingId ? products.find(function(p) { return p.id === editingId; }).createdAt : new Date().toISOString()
-  };
-  
-  if (editingId) {
-    const idx = products.findIndex(function(p) { return p.id === editingId; });
-    products[idx] = data;
-    showToast('✅ Produto atualizado!');
-  } else {
-    products.unshift(data);
-    showToast('✅ Produto adicionado!');
-  }
-  
-  saveProducts();
-  closeModal('productModal');
-  renderCategories();
-  renderProducts();
-  renderAdminProductsList();
-}
-
-function editProduct(id) {
-  openProductForm(id);
-}
-
-function deleteProduct(id) {
-  if (confirm('Excluir este produto?')) {
-    products = products.filter(function(p) { return p.id !== id; });
-    saveProducts();
-    renderCategories();
-    renderProducts();
-    renderAdminProductsList();
-    showToast('🗑️ Produto excluído!');
-  }
-}
-
-function saveStoreSettings() {
-  storeSettings = {
-    name: document.getElementById('storeNameInput').value.trim() || 'Minha Vitrine de Afiliado',
-    description: document.getElementById('storeDescInput').value.trim() || 'Os melhores produtos!'
-  };
-  localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
-  applyStoreSettings();
-  showToast('✅ Configurações salvas!');
-  closeModal('adminModal');
-}
-
-function saveProducts() {
-  try {
-    localStorage.setItem('afiliado_products', JSON.stringify(products));
-  } catch (err) {
-    showToast('⚠️ Armazenamento cheio!');
-  }
-}
-
-function exportData() {
-  const data = { products: products, settings: storeSettings };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'vitrine-' + Date.now() + '.json';
-  a.click();
-  showToast('💾 Backup exportado!');
-}
-
-function importData(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (data.products) products = data.products;
-      if (data.settings) {
-        storeSettings = data.settings;
-        localStorage.setItem('afiliado_settings', JSON.stringify(storeSettings));
-        applyStoreSettings();
-      }
-      saveProducts();
-      renderCategories();
-      renderProducts();
-      renderAdminProductsList();
-      showToast('📥 Importado com sucesso!');
-    } catch (err) {
-      showToast('❌ Erro ao importar!');
-    }
-  };
-  reader.readAsText(file);
-}
-
-function shareStore() {
-  if (navigator.share) {
-    navigator.share({ title: storeSettings.name || 'Minha Vitrine', url: window.location.href });
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    showToast('🔗 Link copiado!');
-  }
-}
-
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(function() { toast.classList.remove('show'); }, 2500);
-}
-
-document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
-  overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) overlay.classList.remove('active');
-  });
-});
-
-init();
-</script>
 
 </body>
 </html>
