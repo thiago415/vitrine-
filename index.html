@@ -25,7 +25,7 @@
 
         .container {
             width: 100%;
-            max-width: 450px; /* Tamanho ideal para visualização em celulares */
+            max-width: 450px;
             background: #ffffff;
             padding: 35px 25px;
             border-radius: 16px;
@@ -35,14 +35,14 @@
         /* Cabeçalho do Perfil */
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .perfil-foto {
             width: 90px;
             height: 90px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #ee4d2d, #ff5a00); /* Degradê moderno */
+            background: linear-gradient(45deg, #ee4d2d, #ff5a00);
             color: white;
             margin: 0 auto 15px;
             display: flex;
@@ -89,7 +89,22 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* Botão de Destaque - Seus Produtos / Linktree */
+        /* NOVO: Botão de Inscrição / Alertas (Dourado/Amarelo com efeito de piscar de leve) */
+        .btn-inscrever {
+            background: linear-gradient(45deg, #ffb700, #ff8800);
+            color: #000000;
+            font-size: 15px;
+            border: 1px solid #e6a100;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Botão de Destaque - Seus Produtos */
         .linktree-principal { 
             background-color: #39e587; 
             color: #000000;
@@ -125,7 +140,12 @@
     <!-- Todos os seus links oficiais configurados -->
     <section class="redes-section">
         
-        <!-- O BOTÃO PRINCIPAL: Direto para os seus produtos afiliados -->
+        <!-- NOVO: Botão para se inscrever no Linktree e receber alertas -->
+        <a href="https://linktr.ee/pontodolink?subscribe" target="_blank" class="btn-rede btn-inscrever">
+            🔔 ATIVAR ALERTAS DE ACHADINHOS
+        </a>
+
+        <!-- Botão dos Produtos -->
         <a href="https://linktr.ee/pontodolink" target="_blank" class="btn-rede linktree-principal">
             🛒 PRODUTOS E ACHADINHOS AQUI
         </a>
